@@ -1,25 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
-<svg version="1.1" viewBox="0 0 500 500" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-	<desc>Created with Fabric.js 4.6.0</desc>
-	<g transform="matrix(1.97 0 0 .87 116.21 107.71)">
-		<path transform="translate(0)" d="m-50-50h100v100h-100z" fill="#fc861d" stroke="#7f1e28"
-			vector-effect="non-scaling-stroke" />
-	</g>
-	<g transform="matrix(1.96 0 0 .86 330.12 107.23)">
-		<path transform="translate(0)" d="m-50-50h100v100h-100z" fill="#eb6f01" stroke="#7f1e28"
-			vector-effect="non-scaling-stroke" />
-	</g>
-	<g transform="matrix(1.96 0 0 .86 115.99 207.6)">
-		<path transform="translate(0)" d="m-50-50h100v100h-100z" fill="#eb6f01" stroke="#7f1e28"
-			vector-effect="non-scaling-stroke" />
-	</g>
-	<g transform="matrix(1.96 0 0 .86 330.12 207.6)">
-		<path transform="translate(0)" d="m-50-50h100v100h-100z" fill="#fc861d" stroke="#7f1e28"
-			vector-effect="non-scaling-stroke" />
-	</g>
-	<g transform="matrix(1.96 0 0 .86 115.99 310.22)">
-		<path transform="translate(0)" d="m-50-50h100v100h-100z" fill="#fc861d" stroke="#7f1e28"
-			vector-effect="non-scaling-stroke" />
-	</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Col 1: light gray, 2 cards -->
+  <rect x="52" y="146" width="120" height="64" rx="8" fill="#9CA3AF"/>
+  <rect x="52" y="224" width="120" height="64" rx="8" fill="#9CA3AF"/>
+  <!-- Col 2: darker gray, 3 cards -->
+  <rect x="196" y="146" width="120" height="64" rx="8" fill="#6B7280"/>
+  <rect x="196" y="224" width="120" height="64" rx="8" fill="#6B7280"/>
+  <rect x="196" y="302" width="120" height="64" rx="8" fill="#6B7280"/>
+  <!-- Col 3: lime, 1 card -->
+  <rect x="340" y="146" width="120" height="64" rx="8" fill="#84CC16"/>
 </svg>
