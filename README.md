@@ -1,6 +1,8 @@
-# Portable Kanban Extension for Visual Studio Code
+# Code Kanban Extension for Visual Studio Code
 
-A lightweight and portable kanban board extension for Visual Studio Code that allows you to create and manage kanban boards directly within your editor.
+A lightweight kanban board extension for Visual Studio Code that allows you to create and manage kanban boards directly within your editor.
+
+> Fork of [harehare/portable-kanban](https://github.com/harehare/portable-kanban) — kept as an independently maintained variant.
 
 ![kanban](./img/kanban.jpg)
 ![Dark-kanban](./img/dark.jpg)
@@ -21,12 +23,12 @@ A lightweight and portable kanban board extension for Visual Studio Code that al
 ### From VS Code Marketplace
 1. Open VS Code
 2. Go to Extensions (Ctrl+Shift+X)
-3. Search for "Portable Kanban"
+3. Search for "Code Kanban"
 4. Click Install
 
 ### From Command Line
 ```bash
-ext install portable-kanban
+ext install code-kanban
 ```
 
 ## Getting Started
@@ -34,7 +36,7 @@ ext install portable-kanban
 ### Creating a New Kanban Board
 
 1. Open Command Palette (Ctrl+Shift+P / Cmd+Shift+P)
-2. Type "Portable Kanban: Create new Kanban"
+2. Type "Code Kanban: Create new Kanban"
 3. Choose a location and filename for your .kanban file
 4. Your kanban board will open in a new editor tab
 
@@ -68,9 +70,9 @@ Configure the extension through VS Code settings:
 
 ```json
 {
-  "portable-kanban.theme": "system", // "dark", "light", or "system"
-  "portable-kanban.show-description": true, // Show/hide card descriptions
-  "portable-kanban.show-task-list": true // Show/hide task lists in cards
+  "code-kanban.theme": "system", // "dark", "light", or "system"
+  "code-kanban.show-description": true, // Show/hide card descriptions
+  "code-kanban.show-task-list": true // Show/hide task lists in cards
 }
 ```
 
@@ -96,7 +98,7 @@ Kanban boards are stored as `.kanban` files in JSON format, making them:
 
 ### Setup
 ```bash
-git clone https://github.com/harehare/portable-kanban.git
+git clone https://github.com/marcover9000/portable-kanban.git
 cd portable-kanban
 npm install
 ```
@@ -139,6 +141,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 🐛 [Report bugs](https://github.com/harehare/portable-kanban/issues)
-- 💡 [Request features](https://github.com/harehare/portable-kanban/issues)
-- ⭐ [Star the project](https://github.com/harehare/portable-kanban) if you find it useful!
+- 🐛 [Report bugs](https://github.com/marcover9000/portable-kanban/issues)
+- 💡 [Request features](https://github.com/marcover9000/portable-kanban/issues)
+- ⭐ [Star the project](https://github.com/marcover9000/portable-kanban) if you find it useful!

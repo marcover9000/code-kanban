@@ -2,7 +2,7 @@
 import * as vscode from 'vscode';
 import { type Kanban, toJson } from './kanban/models/kanban';
 
-const viewType = 'portable-kanban.edit';
+const viewType = 'code-kanban.edit';
 
 export class KanbanEditorProvider implements vscode.CustomTextEditorProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -80,11 +80,11 @@ export class KanbanEditorProvider implements vscode.CustomTextEditorProvider {
   private getHtmlForWebview(webview: vscode.Webview): string {
     const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'dist', 'kanban.js'));
     const theme =
-      vscode.workspace.getConfiguration().get<'dark' | 'light' | 'system' | undefined>('portable-kanban.theme') ??
+      vscode.workspace.getConfiguration().get<'dark' | 'light' | 'system' | undefined>('code-kanban.theme') ??
       'system';
     const showDescription =
-      vscode.workspace.getConfiguration().get<boolean>('portable-kanban.show-description') ?? true;
-    const showTaskList = vscode.workspace.getConfiguration().get<boolean>('portable-kanban.show-task-list') ?? true;
+      vscode.workspace.getConfiguration().get<boolean>('code-kanban.show-description') ?? true;
+    const showTaskList = vscode.workspace.getConfiguration().get<boolean>('code-kanban.show-task-list') ?? true;
     const cssUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'assets', 'css', 'main.css'));
     const themeUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
@@ -105,7 +105,7 @@ export class KanbanEditorProvider implements vscode.CustomTextEditorProvider {
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;800&display=swap" rel="stylesheet">
-				<title>Portable Kanban</title>
+				<title>Code Kanban</title>
         <link rel="stylesheet" nonce="${nonce}" href="${cssUri.toString()}">
         <link rel="stylesheet" nonce="${nonce}" href="${themeUri.toString()}">
 			</head>

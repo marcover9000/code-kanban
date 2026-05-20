@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Portable Kanban is a VSCode extension that provides an embedded kanban board editor for `.kanban` files. The project consists of two main parts:
+Code Kanban is a VSCode extension (forked from `harehare/portable-kanban`) that provides an embedded kanban board editor for `.kanban` files. The project consists of two main parts:
 
 1. **VSCode Extension** (`src/extension.ts`, `src/kanbanEditor.ts`) - Handles VSCode integration, custom editor registration, and file management
 2. **React Kanban App** (`src/kanban/`) - The actual kanban board UI that runs in VSCode's webview

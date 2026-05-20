@@ -7,7 +7,7 @@ import { uuid } from './kanban/utils';
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     KanbanEditorProvider.register(context),
-    vscode.commands.registerCommand('portable-kanban.new', async () => {
+    vscode.commands.registerCommand('code-kanban.new', async () => {
       const fileInfos = await vscode.window.showSaveDialog({
         saveLabel: 'Create kanban',
         filters: {
@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
         };
         const kanbanJson = Buffer.from(JSON.stringify(initialKanban, null, 2), 'utf8');
         await vscode.workspace.fs.writeFile(fileInfos, kanbanJson);
-        await vscode.commands.executeCommand('vscode.openWith', fileInfos, 'portable-kanban.edit');
+        await vscode.commands.executeCommand('vscode.openWith', fileInfos, 'code-kanban.edit');
       } catch (error) {
         await vscode.window.showErrorMessage(`Cannot create file "${fileInfos.toString()}`);
         console.error('Cannot create file', error);

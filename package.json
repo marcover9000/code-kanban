@@ -1,10 +1,10 @@
 {
-  "name": "portable-kanban",
-  "displayName": "Portable Kanban",
-  "description": "This is an extension to create a portable kanban.",
+  "name": "code-kanban",
+  "displayName": "Code Kanban",
+  "description": "Lightweight kanban boards for your projects, embedded in VSCode.",
   "version": "0.2.3",
-  "author": "harehare",
-  "publisher": "harehare",
+  "author": "Marc Sanahuja",
+  "publisher": "marcover9000",
   "icon": "assets/icon.png",
   "private": true,
   "engines": {
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/harehare/portable-kanban.git"
+    "url": "https://github.com/marcover9000/portable-kanban.git"
   },
   "activationEvents": [
     "onStartupFinished"
@@ -27,8 +27,8 @@
   "contributes": {
     "customEditors": [
       {
-        "viewType": "portable-kanban.edit",
-        "displayName": "Kanban",
+        "viewType": "code-kanban.edit",
+        "displayName": "Code Kanban",
         "selector": [
           {
             "filenamePattern": "*.kanban"
@@ -38,16 +38,16 @@
     ],
     "commands": [
       {
-        "command": "portable-kanban.new",
-        "title": "Portable Kanban: Create new Kanban"
+        "command": "code-kanban.new",
+        "title": "Code Kanban: Create new Kanban"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "PortableKanban",
+      "title": "Code Kanban",
       "properties": {
-        "portable-kanban.theme": {
-          "title": "Portable Kanban Theme",
+        "code-kanban.theme": {
+          "title": "Code Kanban Theme",
           "type": "string",
           "default": "system",
           "enum": [
@@ -57,14 +57,14 @@
           ],
           "description": "Switch the theme to dark or light."
         },
-        "portable-kanban.show-description": {
-          "title": "Portable Kanban Show Description",
+        "code-kanban.show-description": {
+          "title": "Code Kanban Show Description",
           "type": "boolean",
           "default": "true",
           "description": "Card description is shown."
         },
-        "portable-kanban.show-task-list": {
-          "title": "Portable Kanban Show Task List",
+        "code-kanban.show-task-list": {
+          "title": "Code Kanban Show Task List",
           "type": "boolean",
           "default": "true",
           "description": "Card task list is shown."
