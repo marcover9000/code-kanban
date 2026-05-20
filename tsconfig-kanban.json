@@ -5,7 +5,7 @@
     "lib": ["ES2021", "dom"],
     "strict": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
   "include": ["./src/kanban/**/*.ts", "./src/kanban/**/*.tsx", "./src/kanban/index.d.ts"],
   "exclude": ["node_modules", "**/*.test.ts"]
