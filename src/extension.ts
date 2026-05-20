@@ -41,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
   const panelProvider = new PanelSidebarProvider(kanbanWatcher);
   context.subscriptions.push(
     kanbanWatcher,
+    panelProvider,
     vscode.window.registerTreeDataProvider('code-kanban.panel-view', panelProvider)
   );
 }

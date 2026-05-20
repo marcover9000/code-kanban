@@ -1,17 +1,25 @@
 import * as vscode from 'vscode';
 
-export class PanelSidebarProvider implements vscode.TreeDataProvider<KanbanFileItem> {
+export class PanelSidebarProvider implements vscode.TreeDataProvider<KanbanFileItem>, vscode.Disposable {
   readonly onDidChangeTreeData: vscode.Event<void>;
+  private readonly changeEmitter = new vscode.EventEmitter<void>();
+  private readonly subscriptions: vscode.Disposable[] = [];
 
   constructor(watcher: vscode.FileSystemWatcher) {
-    const changeEmitter = new vscode.EventEmitter<void>();
-    this.onDidChangeTreeData = changeEmitter.event;
-    watcher.onDidCreate(() => {
-      changeEmitter.fire();
-    });
-    watcher.onDidDelete(() => {
-      changeEmitter.fire();
-    });
+    this.onDidChangeTreeData = this.changeEmitter.event;
+    this.subscriptions.push(
+      this.changeEmitter,
+      watcher.onDidCreate(() => {
+        this.changeEmitter.fire();
+      }),
+      watcher.onDidDelete(() => {
+        this.changeEmitter.fire();
+      })
+    );
+  }
+
+  dispose(): void {
+    for (const s of this.subscriptions) s.dispose();
   }
 
   getTreeItem(element: KanbanFileItem): vscode.TreeItem {

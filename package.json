@@ -62,7 +62,8 @@
     "commands": [
       {
         "command": "code-kanban.new",
-        "title": "Code Kanban: Create new Kanban"
+        "title": "Code Kanban: Create new Kanban",
+        "icon": "$(add)"
       },
       {
         "command": "code-kanban.toggle",

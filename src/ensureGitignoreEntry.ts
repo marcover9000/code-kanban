@@ -12,9 +12,9 @@ export async function ensureGitignoreEntry(workspaceRoot: string, pattern: strin
 
   const current = readFileSync(gitignorePath, 'utf8');
   const alreadyPresent = current
-    .split(/\r?\n/)
+    .split(/\r?\n/v)
     .map((line) => line.trim())
-    .some((line) => line === pattern);
+    .includes(pattern);
 
   if (alreadyPresent) {
     return;
