@@ -36,10 +36,53 @@
         ]
       }
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "code-kanban",
+          "title": "Code Kanban",
+          "icon": "media/code-kanban-activity-bar.svg"
+        }
+      ]
+    },
+    "views": {
+      "code-kanban": [
+        {
+          "id": "code-kanban.shortcut-view",
+          "name": "Code Kanban",
+          "when": "config.code-kanban.activity-bar-mode == 'shortcut'"
+        },
+        {
+          "id": "code-kanban.panel-view",
+          "name": "Boards",
+          "when": "config.code-kanban.activity-bar-mode == 'panel'"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "code-kanban.new",
         "title": "Code Kanban: Create new Kanban"
+      },
+      {
+        "command": "code-kanban.toggle",
+        "title": "Code Kanban: Toggle todo board"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "code-kanban.new",
+          "when": "view == code-kanban.panel-view",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "code-kanban.toggle",
+        "key": "ctrl+alt+k",
+        "mac": "cmd+alt+k"
       }
     ],
     "configuration": {
@@ -68,6 +111,34 @@
           "type": "boolean",
           "default": "true",
           "description": "Card task list is shown."
+        },
+        "code-kanban.activity-bar-mode": {
+          "title": "Activity Bar Mode",
+          "type": "string",
+          "default": "shortcut",
+          "enum": [
+            "shortcut",
+            "panel"
+          ],
+          "enumDescriptions": [
+            "Activity-bar icon toggles the workspace's .todo.kanban open/closed in the editor area.",
+            "Activity-bar icon opens a sidebar listing all *.kanban files in the workspace."
+          ],
+          "description": "Controls how the activity-bar icon behaves."
+        },
+        "code-kanban.default-lists": {
+          "title": "Default Lists",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "Backlog",
+            "To Do",
+            "Doing",
+            "Done"
+          ],
+          "description": "List/column titles used when creating a new kanban file."
         }
       }
     }
