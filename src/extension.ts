@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer';
 import * as vscode from 'vscode';
 import { KanbanEditorProvider } from './kanbanEditor';
 import { buildInitialKanban } from './buildInitialKanban';
+import { toggleKanban } from './toggleKanban';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -28,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
         await vscode.window.showErrorMessage(`Cannot create file "${fileInfos.toString()}`);
         console.error('Cannot create file', error);
       }
-    })
+    }),
+    vscode.commands.registerCommand('code-kanban.toggle', toggleKanban)
   );
 }
