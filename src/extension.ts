@@ -4,6 +4,7 @@ import { KanbanEditorProvider } from './kanbanEditor';
 import { buildInitialKanban } from './buildInitialKanban';
 import { toggleKanban } from './toggleKanban';
 import { ShortcutSidebarProvider } from './shortcutSidebarProvider';
+import { PanelSidebarProvider } from './panelSidebarProvider';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -20,8 +21,7 @@ export function activate(context: vscode.ExtensionContext) {
       }
 
       try {
-        const defaultLists =
-          vscode.workspace.getConfiguration().get<string[]>('code-kanban.default-lists') ?? [];
+        const defaultLists = vscode.workspace.getConfiguration().get<string[]>('code-kanban.default-lists') ?? [];
         const initialKanban = buildInitialKanban(defaultLists);
         const kanbanJson = Buffer.from(JSON.stringify(initialKanban, null, 2), 'utf8');
         await vscode.workspace.fs.writeFile(fileInfos, kanbanJson);
@@ -35,7 +35,12 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   const shortcutProvider = new ShortcutSidebarProvider();
+  context.subscriptions.push(vscode.window.registerTreeDataProvider('code-kanban.shortcut-view', shortcutProvider));
+
+  const kanbanWatcher = vscode.workspace.createFileSystemWatcher('**/*.kanban');
+  const panelProvider = new PanelSidebarProvider(kanbanWatcher);
   context.subscriptions.push(
-    vscode.window.registerTreeDataProvider('code-kanban.shortcut-view', shortcutProvider)
+    kanbanWatcher,
+    vscode.window.registerTreeDataProvider('code-kanban.panel-view', panelProvider)
   );
 }
