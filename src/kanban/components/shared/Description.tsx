@@ -40,25 +40,32 @@ export const Description = ({ description: defaultDescription, fontSize, onEnter
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setDescription(e.target.value);
           }}
+          onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => {
+            e.currentTarget.style.borderColor = 'var(--primary-color)';
+          }}
+          onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => {
+            e.currentTarget.style.borderColor = 'var(--form-border-color)';
+            handleBlur();
+          }}
           placeholder="Enter description"
           minRows={3}
           maxRows={20}
           style={{
             width: 'calc(100% - 24px)',
             fontFamily: 'var(--font-family)',
-            backgroundColor: 'var(--secondary-background-color)',
+            backgroundColor: 'var(--card-background-color, var(--secondary-background-color))',
             color: 'var(--text-color)',
             fontSize: fontSize === 'medium' ? '1rem' : '1.5rem',
             lineHeight: '1.5rem',
-            padding: '24px 8px 16px 8px',
+            padding: '12px 8px',
             resize: 'none',
-            borderColor: 'var(--form-border-color)',
+            border: '1px solid var(--form-border-color)',
             borderRadius: 'var(--border-radius)',
             outline: 'none',
+            transition: 'border-color 120ms ease-in-out',
           }}
           value={description}
           autoFocus={true}
-          onBlur={handleBlur}
         />
       ) : (
         <div
