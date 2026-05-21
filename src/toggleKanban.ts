@@ -2,11 +2,34 @@ import { Buffer } from 'node:buffer';
 import * as vscode from 'vscode';
 import { buildInitialKanban } from './buildInitialKanban';
 import { ensureGitignoreEntry } from './ensureGitignoreEntry';
+import { type PanelBoardViewProvider } from './panelBoardView';
 
 const DEFAULT_FILENAME = '.todo.kanban';
 const CUSTOM_EDITOR_VIEW_TYPE = 'code-kanban.edit';
+const PANEL_VIEW_FOCUS_COMMAND = 'code-kanban.panel-view.focus';
 
-export async function toggleKanban(): Promise<void> {
+export async function toggleKanban(panelProvider: PanelBoardViewProvider): Promise<void> {
+  const mode =
+    vscode.workspace.getConfiguration().get<'shortcut' | 'panel'>('code-kanban.activity-bar-mode') ?? 'shortcut';
+
+  if (mode === 'panel') {
+    await togglePanelView(panelProvider);
+    return;
+  }
+
+  await toggleEditorFile();
+}
+
+async function togglePanelView(panelProvider: PanelBoardViewProvider): Promise<void> {
+  if (panelProvider.isVisible) {
+    await vscode.commands.executeCommand('workbench.action.closeSidebar');
+    return;
+  }
+
+  await vscode.commands.executeCommand(PANEL_VIEW_FOCUS_COMMAND);
+}
+
+async function toggleEditorFile(): Promise<void> {
   const root = vscode.workspace.workspaceFolders?.[0];
   if (!root) {
     await vscode.window.showWarningMessage('Open a folder or workspace to use Code Kanban.');

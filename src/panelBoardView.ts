@@ -10,6 +10,10 @@ const COLLAPSE_KEY = 'code-kanban.sidebar.collapsed-lists';
 export class PanelBoardViewProvider implements vscode.WebviewViewProvider {
   private currentView: vscode.WebviewView | undefined;
 
+  public get isVisible(): boolean {
+    return this.currentView?.visible ?? false;
+  }
+
   constructor(
     private readonly context: vscode.ExtensionContext,
     watcher: vscode.FileSystemWatcher

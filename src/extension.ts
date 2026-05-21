@@ -7,6 +7,9 @@ import { PanelBoardViewProvider } from './panelBoardView';
 import { ShortcutBounceViewProvider } from './shortcutBounceView';
 
 export function activate(context: vscode.ExtensionContext) {
+  const kanbanWatcher = vscode.workspace.createFileSystemWatcher('**/*.kanban');
+  const panelBoardProvider = new PanelBoardViewProvider(context, kanbanWatcher);
+
   context.subscriptions.push(
     KanbanEditorProvider.register(context),
     vscode.commands.registerCommand('code-kanban.new', async () => {
@@ -31,12 +34,12 @@ export function activate(context: vscode.ExtensionContext) {
         console.error('Cannot create file', error);
       }
     }),
-    vscode.commands.registerCommand('code-kanban.toggle', toggleKanban)
+    vscode.commands.registerCommand('code-kanban.toggle', () => toggleKanban(panelBoardProvider))
   );
 
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   statusBarItem.text = '$(checklist) Code Kanban';
-  statusBarItem.tooltip = 'Toggle .todo.kanban (Ctrl+Alt+K)';
+  statusBarItem.tooltip = 'Toggle Code Kanban (Ctrl+Alt+K)';
   statusBarItem.command = 'code-kanban.toggle';
   const syncStatusBar = () => {
     const useActivityBar = vscode.workspace
@@ -63,8 +66,6 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.window.registerWebviewViewProvider('code-kanban.shortcut-view', shortcutBounceProvider)
   );
 
-  const kanbanWatcher = vscode.workspace.createFileSystemWatcher('**/*.kanban');
-  const panelBoardProvider = new PanelBoardViewProvider(context, kanbanWatcher);
   context.subscriptions.push(
     kanbanWatcher,
     vscode.window.registerWebviewViewProvider('code-kanban.panel-view', panelBoardProvider)
