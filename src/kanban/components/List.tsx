@@ -24,6 +24,7 @@ const Contents = styled.div`
   border-radius: var(--border-radius);
   background-color: var(--primary-background-color);
   box-shadow: var(--shadow-sm);
+  border-top: 3px solid var(--primary-color);
 `;
 
 const Cards = styled.div`

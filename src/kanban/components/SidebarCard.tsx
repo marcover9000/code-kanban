@@ -4,12 +4,13 @@ import { type Card } from '../models/kanban';
 
 const Container = styled.div<{ $selected: boolean }>`
   background-color: var(--card-background-color);
-  border: 1px solid ${(p) => (p.$selected ? 'var(--main-color)' : 'transparent')};
+  border: 1px solid ${(p) => (p.$selected ? 'var(--primary-color)' : 'var(--form-border-color)')};
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 6px;
   cursor: grab;
   font-size: 0.85rem;
+  box-shadow: var(--shadow-sm);
 `;
 
 const Title = styled.div`

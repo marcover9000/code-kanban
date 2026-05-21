@@ -16,7 +16,8 @@ const Container = styled.div`
   padding: 8px;
   margin-bottom: 8px;
   border-radius: var(--border-radius);
-  background-color: var(--secondary-background-color);
+  background-color: var(--card-background-color, var(--secondary-background-color));
+  border: 1px solid var(--form-border-color);
   cursor: pointer;
   box-sizing: content-box;
   box-shadow: var(--shadow-sm);
