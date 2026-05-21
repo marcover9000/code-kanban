@@ -52,7 +52,7 @@
         {
           "id": "code-kanban.shortcut-view",
           "name": "Code Kanban",
-          "when": "config.code-kanban.activity-bar-mode == 'shortcut' && config.code-kanban.experimental.activity-bar-shortcut",
+          "when": "config.code-kanban.activity-bar-mode == 'shortcut' && config.code-kanban.shortcut-mode.button-location == 'activity-bar'",
           "type": "webview"
         },
         {
@@ -154,11 +154,16 @@
           "default": true,
           "description": "Show card checkbox count (e.g. 3/5) in the panel-mode sidebar."
         },
-        "code-kanban.experimental.activity-bar-shortcut": {
-          "title": "Experimental: Activity-bar shortcut icon",
-          "type": "boolean",
-          "default": false,
-          "description": "Experimental. When enabled, the shortcut mode shows an icon in the activity bar (with a ~50ms visible 'bounce' when clicked, a VSCode limitation) instead of the status-bar button. Off by default — the status-bar button is the cleaner experience."
+        "code-kanban.shortcut-mode.button-location": {
+          "title": "Shortcut Mode: Button Location",
+          "type": "string",
+          "default": "status-bar",
+          "enum": ["status-bar", "activity-bar"],
+          "enumDescriptions": [
+            "Show the toggle button in the status bar (bottom). Clean, no visible UI flash when clicked. Recommended.",
+            "Show the toggle button as an icon in the activity bar (left). Has a ~50ms visible 'bounce' when clicked (VSCode limitation — the sidebar briefly opens and closes)."
+          ],
+          "description": "Where to place the toggle button when `activity-bar-mode` is set to 'shortcut'. Does not affect panel mode (in panel mode the activity-bar icon is always shown because it hosts the sidebar view)."
         }
       }
     }

@@ -42,10 +42,15 @@ export function activate(context: vscode.ExtensionContext) {
   statusBarItem.tooltip = 'Toggle Code Kanban (Ctrl+Alt+K)';
   statusBarItem.command = 'code-kanban.toggle';
   const syncStatusBar = () => {
-    const useActivityBar = vscode.workspace
-      .getConfiguration()
-      .get<boolean>('code-kanban.experimental.activity-bar-shortcut') ?? false;
-    if (useActivityBar) {
+    const config = vscode.workspace.getConfiguration();
+    const mode = config.get<'shortcut' | 'panel'>('code-kanban.activity-bar-mode') ?? 'shortcut';
+    const shortcutLocation =
+      config.get<'status-bar' | 'activity-bar'>('code-kanban.shortcut-mode.button-location') ?? 'status-bar';
+    // Status bar shows whenever the button isn't anchored to the activity bar.
+    // In panel mode the activity-bar icon is always present, but the status-bar button
+    // is still useful as an alternative entry point.
+    const hideStatusBar = mode === 'shortcut' && shortcutLocation === 'activity-bar';
+    if (hideStatusBar) {
       statusBarItem.hide();
     } else {
       statusBarItem.show();
@@ -55,7 +60,10 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     statusBarItem,
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (e.affectsConfiguration('code-kanban.experimental.activity-bar-shortcut')) {
+      if (
+        e.affectsConfiguration('code-kanban.activity-bar-mode') ||
+        e.affectsConfiguration('code-kanban.shortcut-mode.button-location')
+      ) {
         syncStatusBar();
       }
     })
