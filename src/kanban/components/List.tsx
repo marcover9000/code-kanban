@@ -10,7 +10,7 @@ import { uuid } from '../utils';
 import { Card } from './Card';
 import { ColorPicker } from './ColorPicker';
 import { SelectList } from './SelectList';
-import { AddButton } from './shared/AddButton';
+import { Input } from './shared/Input';
 import { Menu } from './shared/Menu';
 import { TextSm, TextXs } from './shared/Text';
 import { Title } from './shared/Title';
@@ -333,34 +333,35 @@ export const List = ({ kanban, list }: Properties) => {
                 </Cards>
               </div>
               {list.id === addingCard?.listId ? (
-                <Card
-                  card={addingCard}
-                  isEdit={true}
-                  onEnter={(c) => {
-                    setAddCard(undefined);
-                    handleAddCard(c);
+                <Input
+                  autoFocus
+                  value={addingCard.title}
+                  placeholder="Card title…"
+                  style={{ width: 'calc(100% - 16px)', marginBottom: '6px' }}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setAddCard({ ...addingCard, title: e.target.value });
                   }}
-                  onBlur={(c) => {
+                  onBlur={() => {
+                    if (addingCard.title.trim().length > 0) {
+                      handleAddCard(addingCard);
+                    }
+
                     setAddCard(undefined);
-                    handleAddCard(c);
                   }}
-                />
-              ) : (
-                <></>
-              )}
-              {list.id === addingCard?.listId ? (
-                <AddButton
-                  text="Add a card"
-                  type="primary"
-                  disabled={addingCard?.title === undefined || addingCard?.title?.replace('\n', '') === ''}
-                  canClose={true}
-                  onAddClick={() => {
-                    setAddCard(undefined);
-                    handleAddCard(addingCard);
-                  }}
-                  onCancel={() => {
-                    setAddCard(undefined);
-                    setKanban(kanban);
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      if (addingCard.title.trim().length > 0) {
+                        handleAddCard(addingCard);
+                      }
+
+                      setAddCard(undefined);
+                    }
+
+                    if (e.key === 'Escape') {
+                      setAddCard(undefined);
+                      setKanban(kanban);
+                    }
                   }}
                 />
               ) : (
