@@ -3,8 +3,8 @@ import * as vscode from 'vscode';
 import { KanbanEditorProvider } from './kanbanEditor';
 import { buildInitialKanban } from './buildInitialKanban';
 import { toggleKanban } from './toggleKanban';
-import { ShortcutBounceViewProvider } from './shortcutBounceView';
 import { PanelBoardViewProvider } from './panelBoardView';
+import { ShortcutBounceViewProvider } from './shortcutBounceView';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -32,6 +32,30 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }),
     vscode.commands.registerCommand('code-kanban.toggle', toggleKanban)
+  );
+
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+  statusBarItem.text = '$(checklist) Code Kanban';
+  statusBarItem.tooltip = 'Toggle .todo.kanban (Ctrl+Alt+K)';
+  statusBarItem.command = 'code-kanban.toggle';
+  const syncStatusBar = () => {
+    const useActivityBar = vscode.workspace
+      .getConfiguration()
+      .get<boolean>('code-kanban.experimental.activity-bar-shortcut') ?? false;
+    if (useActivityBar) {
+      statusBarItem.hide();
+    } else {
+      statusBarItem.show();
+    }
+  };
+  syncStatusBar();
+  context.subscriptions.push(
+    statusBarItem,
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration('code-kanban.experimental.activity-bar-shortcut')) {
+        syncStatusBar();
+      }
+    })
   );
 
   const shortcutBounceProvider = new ShortcutBounceViewProvider();

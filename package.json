@@ -52,7 +52,7 @@
         {
           "id": "code-kanban.shortcut-view",
           "name": "Code Kanban",
-          "when": "config.code-kanban.activity-bar-mode == 'shortcut'",
+          "when": "config.code-kanban.activity-bar-mode == 'shortcut' && config.code-kanban.experimental.activity-bar-shortcut",
           "type": "webview"
         },
         {
@@ -153,6 +153,12 @@
           "type": "boolean",
           "default": true,
           "description": "Show card checkbox count (e.g. 3/5) in the panel-mode sidebar."
+        },
+        "code-kanban.experimental.activity-bar-shortcut": {
+          "title": "Experimental: Activity-bar shortcut icon",
+          "type": "boolean",
+          "default": false,
+          "description": "Experimental. When enabled, the shortcut mode shows an icon in the activity bar (with a ~50ms visible 'bounce' when clicked, a VSCode limitation) instead of the status-bar button. Off by default — the status-bar button is the cleaner experience."
         }
       }
     }
