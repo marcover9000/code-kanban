@@ -3,8 +3,6 @@ import * as vscode from 'vscode';
 import { KanbanEditorProvider } from './kanbanEditor';
 import { buildInitialKanban } from './buildInitialKanban';
 import { toggleKanban } from './toggleKanban';
-import { ShortcutSidebarProvider } from './shortcutSidebarProvider';
-import { PanelSidebarProvider } from './panelSidebarProvider';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -32,16 +30,5 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }),
     vscode.commands.registerCommand('code-kanban.toggle', toggleKanban)
-  );
-
-  const shortcutProvider = new ShortcutSidebarProvider();
-  context.subscriptions.push(vscode.window.registerTreeDataProvider('code-kanban.shortcut-view', shortcutProvider));
-
-  const kanbanWatcher = vscode.workspace.createFileSystemWatcher('**/*.kanban');
-  const panelProvider = new PanelSidebarProvider(kanbanWatcher);
-  context.subscriptions.push(
-    kanbanWatcher,
-    panelProvider,
-    vscode.window.registerTreeDataProvider('code-kanban.panel-view', panelProvider)
   );
 }
