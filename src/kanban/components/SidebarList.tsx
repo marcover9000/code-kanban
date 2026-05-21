@@ -56,8 +56,13 @@ const Toggle = styled.span`
   user-select: none;
 `;
 
-const Cards = styled.div`
-  min-height: 24px;
+const Cards = styled.div<{ $collapsed: boolean; $isDraggingOver: boolean }>`
+  min-height: ${(p) => (p.$collapsed ? (p.$isDraggingOver ? '40px' : '6px') : '24px')};
+  background-color: ${(p) => (p.$collapsed && p.$isDraggingOver ? 'rgba(127, 127, 127, 0.08)' : 'transparent')};
+  border-radius: 4px;
+  transition:
+    min-height 120ms ease-in-out,
+    background-color 120ms ease-in-out;
 `;
 
 const AddRow = styled.div`
@@ -135,24 +140,26 @@ export const SidebarList = ({
           <Cards
             {...provided.droppableProps}
             ref={provided.innerRef}
-            style={{ display: collapsed ? 'none' : 'block' }}
+            $collapsed={collapsed}
+            $isDraggingOver={snapshot.isDraggingOver}
           >
-            {list.cards.map((c: Card, index: number) => (
-              <Draggable key={c.id} draggableId={c.id} index={index}>
-                {(p) => (
-                  <div ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
-                    <SidebarCard
-                      card={c}
-                      selected={c.id === selectedCardId}
-                      settings={cardSettings}
-                      onClick={() => {
-                        onSelectCard(c.id);
-                      }}
-                    />
-                  </div>
-                )}
-              </Draggable>
-            ))}
+            {!collapsed &&
+              list.cards.map((c: Card, index: number) => (
+                <Draggable key={c.id} draggableId={c.id} index={index}>
+                  {(p) => (
+                    <div ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
+                      <SidebarCard
+                        card={c}
+                        selected={c.id === selectedCardId}
+                        settings={cardSettings}
+                        onClick={() => {
+                          onSelectCard(c.id);
+                        }}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
             {provided.placeholder}
           </Cards>
           {!collapsed && (
