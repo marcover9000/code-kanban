@@ -5,12 +5,14 @@ import { type List, type Card } from '../models/kanban';
 import { SidebarCard } from './SidebarCard';
 import { Input } from './shared/Input';
 
-const Container = styled.div<{ $accentColor: string }>`
+const Container = styled.div<{ $accentColor: string; $isDraggingOver: boolean }>`
   background-color: var(--list-background-color);
   border-radius: 6px;
   padding: 8px;
   margin-bottom: 10px;
   border-left: 3px solid ${(p) => p.$accentColor};
+  box-shadow: ${(p) => (p.$isDraggingOver ? `inset 0 0 0 2px ${p.$accentColor}` : 'none')};
+  transition: box-shadow 120ms ease-in-out;
 `;
 
 const Header = styled.div`
@@ -21,10 +23,26 @@ const Header = styled.div`
   margin-bottom: 6px;
 `;
 
+const TitleWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const Dot = styled.span<{ $color: string }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: ${(p) => p.$color};
+  flex-shrink: 0;
+`;
+
 const Title = styled.div`
   font-weight: 700;
   color: var(--main-color);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 `;
 
 const Count = styled.span`
@@ -98,19 +116,24 @@ export const SidebarList = ({
     setAdding(false);
   };
 
+  const accentColor = list.color ?? 'var(--primary-color)';
+
   return (
-    <Container $accentColor={list.color ?? 'var(--primary-color)'}>
-      <Header onClick={onToggleCollapse}>
-        <Title>
-          {list.title}
-          <Count>({list.cards.length})</Count>
-        </Title>
-        <Toggle>{collapsed ? '▸' : '▾'}</Toggle>
-      </Header>
-      {!collapsed && (
-        <>
-          <Droppable droppableId={list.id} type="cards">
-            {(provided) => (
+    <Droppable droppableId={list.id} type="cards">
+      {(provided, snapshot) => (
+        <Container $accentColor={accentColor} $isDraggingOver={snapshot.isDraggingOver}>
+          <Header onClick={onToggleCollapse}>
+            <TitleWrap>
+              <Dot $color={accentColor} />
+              <Title>
+                {list.title}
+                <Count>({list.cards.length})</Count>
+              </Title>
+            </TitleWrap>
+            <Toggle>{collapsed ? '▸' : '▾'}</Toggle>
+          </Header>
+          {!collapsed && (
+            <>
               <Cards {...provided.droppableProps} ref={provided.innerRef}>
                 {list.cards.map((c: Card, index: number) => (
                   <Draggable key={c.id} draggableId={c.id} index={index}>
@@ -130,9 +153,7 @@ export const SidebarList = ({
                 ))}
                 {provided.placeholder}
               </Cards>
-            )}
-          </Droppable>
-          <AddRow>
+              <AddRow>
             {adding ? (
               <Input
                 autoFocus
@@ -162,6 +183,8 @@ export const SidebarList = ({
           </AddRow>
         </>
       )}
-    </Container>
+        </Container>
+      )}
+    </Droppable>
   );
 };
