@@ -43,16 +43,21 @@ const LabelItem = styled.div`
 `;
 
 const AddLabel = styled.div`
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.5rem;
   color: var(--text-color);
-  background-color: var(--button-color);
+  background-color: var(--card-background-color, var(--secondary-background-color));
+  border: 1px solid var(--form-border-color);
   border-radius: var(--border-radius);
   margin-right: 4px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 4px 8px;
   cursor: pointer;
   max-width: 140px;
+  transition: border-color 120ms ease-in-out;
+  &:hover {
+    border-color: var(--primary-color);
+  }
 `;
 
 type Properties = {

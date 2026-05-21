@@ -64,21 +64,29 @@ export const Description = ({ description: defaultDescription, fontSize, onEnter
         <div
           style={{
             fontSize: fontSize === 'medium' ? '1rem' : '1.5rem',
-            color: 'var(--text-color)',
-            backgroundColor: 'var(--secondary-background-color)',
+            color: description.length === 0 ? 'var(--secondary-text-color)' : 'var(--text-color)',
+            backgroundColor: 'var(--card-background-color, var(--secondary-background-color))',
+            border: '1px solid var(--form-border-color)',
             cursor: 'pointer',
             minHeight: '96px',
             width: 'calc(100% - 24px)',
             borderRadius: 'var(--border-radius)',
             overflow: 'hidden',
             padding: '8px',
+            transition: 'border-color 120ms ease-in-out',
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--primary-color)';
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--form-border-color)';
           }}
           onClick={(e) => {
             e.stopPropagation();
             setEdit(true);
           }}
         >
-          <ReactMarkdown>{description}</ReactMarkdown>
+          <ReactMarkdown>{description.length === 0 ? 'Click to add a description…' : description}</ReactMarkdown>
         </div>
       )}
     </Container>
