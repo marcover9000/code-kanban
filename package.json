@@ -50,12 +50,14 @@
         {
           "id": "code-kanban.shortcut-view",
           "name": "Code Kanban",
-          "when": "config.code-kanban.activity-bar-mode == 'shortcut'"
+          "when": "config.code-kanban.activity-bar-mode == 'shortcut'",
+          "type": "webview"
         },
         {
           "id": "code-kanban.panel-view",
-          "name": "Boards",
-          "when": "config.code-kanban.activity-bar-mode == 'panel'"
+          "name": "Code Kanban",
+          "when": "config.code-kanban.activity-bar-mode == 'panel'",
+          "type": "webview"
         }
       ]
     },
@@ -70,15 +72,6 @@
         "title": "Code Kanban: Toggle todo board"
       }
     ],
-    "menus": {
-      "view/title": [
-        {
-          "command": "code-kanban.new",
-          "when": "view == code-kanban.panel-view",
-          "group": "navigation"
-        }
-      ]
-    },
     "keybindings": [
       {
         "command": "code-kanban.toggle",
@@ -122,8 +115,8 @@
             "panel"
           ],
           "enumDescriptions": [
-            "Activity-bar icon toggles the workspace's .todo.kanban open/closed in the editor area.",
-            "Activity-bar icon opens a sidebar listing all *.kanban files in the workspace."
+            "Activity-bar icon toggles .todo.kanban open/closed in the main editor (no sidebar shown).",
+            "Activity-bar icon opens a sidebar rendering the vertical compact board."
           ],
           "description": "Controls how the activity-bar icon behaves."
         },
@@ -140,6 +133,24 @@
             "Done"
           ],
           "description": "List/column titles used when creating a new kanban file."
+        },
+        "code-kanban.sidebar.show-labels": {
+          "title": "Sidebar Show Labels",
+          "type": "boolean",
+          "default": true,
+          "description": "Show card labels as pills in the panel-mode sidebar."
+        },
+        "code-kanban.sidebar.show-due-date": {
+          "title": "Sidebar Show Due Date",
+          "type": "boolean",
+          "default": true,
+          "description": "Show card due date in the panel-mode sidebar."
+        },
+        "code-kanban.sidebar.show-checkbox-count": {
+          "title": "Sidebar Show Checkbox Count",
+          "type": "boolean",
+          "default": true,
+          "description": "Show card checkbox count (e.g. 3/5) in the panel-mode sidebar."
         }
       }
     }
