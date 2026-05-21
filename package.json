@@ -21,7 +21,9 @@
     "url": "https://github.com/marcover9000/portable-kanban.git"
   },
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onView:code-kanban.shortcut-view",
+    "onView:code-kanban.panel-view"
   ],
   "main": "./dist/extension.js",
   "contributes": {
