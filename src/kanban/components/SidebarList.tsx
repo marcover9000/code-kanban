@@ -57,7 +57,7 @@ const Toggle = styled.span`
 `;
 
 const Cards = styled.div`
-  min-height: 8px;
+  min-height: 24px;
 `;
 
 const AddRow = styled.div`
@@ -132,27 +132,31 @@ export const SidebarList = ({
             </TitleWrap>
             <Toggle>{collapsed ? '▸' : '▾'}</Toggle>
           </Header>
+          <Cards
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            style={{ display: collapsed ? 'none' : 'block' }}
+          >
+            {list.cards.map((c: Card, index: number) => (
+              <Draggable key={c.id} draggableId={c.id} index={index}>
+                {(p) => (
+                  <div ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
+                    <SidebarCard
+                      card={c}
+                      selected={c.id === selectedCardId}
+                      settings={cardSettings}
+                      onClick={() => {
+                        onSelectCard(c.id);
+                      }}
+                    />
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </Cards>
           {!collapsed && (
             <>
-              <Cards {...provided.droppableProps} ref={provided.innerRef}>
-                {list.cards.map((c: Card, index: number) => (
-                  <Draggable key={c.id} draggableId={c.id} index={index}>
-                    {(p) => (
-                      <div ref={p.innerRef} {...p.draggableProps} {...p.dragHandleProps}>
-                        <SidebarCard
-                          card={c}
-                          selected={c.id === selectedCardId}
-                          settings={cardSettings}
-                          onClick={() => {
-                            onSelectCard(c.id);
-                          }}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </Cards>
               <AddRow>
             {adding ? (
               <Input
