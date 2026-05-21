@@ -10,27 +10,40 @@ const AddItemLabel = styled.div`
   width: var(--list-width);
   height: 40px;
   border-radius: var(--border-radius);
-  background-color: var(--primary-background-color);
+  background-color: transparent;
+  border: 1px dashed var(--form-border-color);
   cursor: pointer;
   box-sizing: border-box;
+  color: var(--secondary-text-color);
+  transition:
+    border-color 120ms ease-in-out,
+    color 120ms ease-in-out,
+    background-color 120ms ease-in-out;
+  &:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: var(--card-background-color, var(--secondary-background-color));
+  }
 `;
 
 const AddItemForm = styled.div`
   width: var(--list-width);
   padding: 8px;
   height: 88px;
-  background-color: var(--primary-background-color);
+  background-color: var(--card-background-color, var(--secondary-background-color));
+  border: 1px solid var(--form-border-color);
   border-radius: var(--border-radius);
+  box-sizing: border-box;
 `;
 
 const Label = styled.div`
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: var(--text-color);
+  color: inherit;
 `;
 
 const Icon = styled.div`
-  color: var(--text-color);
+  color: inherit;
   font-size: 1.3rem;
   margin: 4px 4px 0 0;
 `;

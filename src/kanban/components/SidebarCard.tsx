@@ -11,6 +11,15 @@ const Container = styled.div<{ $selected: boolean }>`
   cursor: grab;
   font-size: 0.85rem;
   box-shadow: var(--shadow-sm);
+  transition:
+    border-color 120ms ease-in-out,
+    box-shadow 120ms ease-in-out,
+    transform 120ms ease-in-out;
+  &:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
 `;
 
 const Title = styled.div`
