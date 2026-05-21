@@ -8,22 +8,28 @@
   --font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     sans-serif;
 
+  /* Canvas + columns + cards — pull from VSCode theme variables */
   --main-background-color: var(--vscode-editor-background);
   --primary-background-color: var(--vscode-sideBar-background);
   --secondary-background-color: var(--vscode-editorWidget-background);
+  --card-background-color: var(--vscode-editorWidget-background);
+  --list-background-color: var(--vscode-sideBar-background);
 
   --text-color: var(--vscode-foreground);
   --light-text-color: var(--vscode-foreground);
   --secondary-text-color: var(--vscode-descriptionForeground);
+  --main-color: var(--vscode-foreground);
   --selected-color: var(--vscode-list-activeSelectionBackground);
   --hover-color: var(--vscode-list-hoverBackground);
 
-  --primary-color: var(--vscode-textLink-foreground);
-  --danger-color: #d62f39;
-  --warning-color: #fcc44e;
-  --success-color: #43a23c;
+  /* Palette B accents — kept constant across light/dark since they're brand-driven */
+  --primary-color: #3b82f6;
+  --danger-color: #dc2626;
+  --warning-color: #f59e0b;
+  --success-color: #84cc16;
   --header-color: var(--vscode-titleBar-activeBackground);
 
-  --button-color: var(--vscode-button-background);
+  --button-color: #3b82f6;
+  --button-text-color: #ffffff;
   --form-border-color: var(--vscode-panel-border);
 }

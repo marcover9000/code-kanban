@@ -16,12 +16,12 @@ const ButtonBase = styled.button<{
   ${(properties) =>
     properties.background === 'primary'
       ? css`
-          color: var(--light-text-color);
+          color: var(--button-text-color, #ffffff);
           background-color: var(--primary-color);
         `
       : properties.background === 'danger'
         ? css`
-            color: var(--light-text-color);
+            color: var(--button-text-color, #ffffff);
             background-color: var(--danger-color);
           `
         : css`
@@ -32,11 +32,11 @@ const ButtonBase = styled.button<{
     ${(properties) =>
       properties.background === 'primary'
         ? css`
-            background-color: #285f8f !important;
+            background-color: #2563eb !important;
           `
         : properties.background === 'danger'
           ? css`
-              background-color: #c02a33 !important;
+              background-color: #b91c1c !important;
             `
           : css`
               background-color: var(--selected-color) !important;
