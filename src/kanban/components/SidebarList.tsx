@@ -5,11 +5,12 @@ import { type List, type Card } from '../models/kanban';
 import { SidebarCard } from './SidebarCard';
 import { Input } from './shared/Input';
 
-const Container = styled.div`
+const Container = styled.div<{ $accentColor: string }>`
   background-color: var(--list-background-color);
   border-radius: 6px;
   padding: 8px;
   margin-bottom: 10px;
+  border-left: 3px solid ${(p) => p.$accentColor};
 `;
 
 const Header = styled.div`
@@ -98,7 +99,7 @@ export const SidebarList = ({
   };
 
   return (
-    <Container>
+    <Container $accentColor={list.color ?? 'var(--primary-color)'}>
       <Header onClick={onToggleCollapse}>
         <Title>
           {list.title}

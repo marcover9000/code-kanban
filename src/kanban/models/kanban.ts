@@ -23,6 +23,7 @@ export type Settings = {
 export type List = {
   id: string;
   title: string;
+  color?: string;
   cards: Card[];
 };
 
@@ -554,6 +555,7 @@ const cardDecoder: Decoder<Card> = object({
 const listDecoder: Decoder<List> = object({
   id: string(),
   title: string(),
+  color: optional(string()),
   cards: array(cardDecoder),
 });
 

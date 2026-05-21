@@ -2,12 +2,13 @@ import Fuse from 'fuse.js';
 import * as React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { FiPlus } from 'react-icons/fi';
-import { MdAdd, MdArchive, MdDriveFileMoveOutline, MdMenu, MdOutlineArchive, MdSortByAlpha } from 'react-icons/md';
+import { MdAdd, MdArchive, MdDriveFileMoveOutline, MdMenu, MdOutlineArchive, MdPalette, MdSortByAlpha } from 'react-icons/md';
 import { styled } from 'styled-components';
 import { type Kanban as KanbanModel, type List as ListModel, type Card as CardModel, newCard } from '../models/kanban';
 import { selectors, actions, kanbanActions } from '../store';
 import { uuid } from '../utils';
 import { Card } from './Card';
+import { ColorPicker } from './ColorPicker';
 import { SelectList } from './SelectList';
 import { AddButton } from './shared/AddButton';
 import { Menu } from './shared/Menu';
@@ -19,12 +20,12 @@ const Container = styled.div`
   margin: 8px 0 8px 8px;
 `;
 
-const Contents = styled.div`
+const Contents = styled.div<{ $accentColor: string }>`
   padding: 8px;
   border-radius: var(--border-radius);
   background-color: var(--primary-background-color);
   box-shadow: var(--shadow-sm);
-  border-top: 3px solid var(--primary-color);
+  border-top: 3px solid ${(p) => p.$accentColor};
 `;
 
 const Cards = styled.div`
@@ -165,7 +166,7 @@ export const List = ({ kanban, list }: Properties) => {
 
   return (
     <Container>
-      <Contents>
+      <Contents $accentColor={list.color ?? 'var(--primary-color)'}>
         <Droppable droppableId={list.id} type="cards">
           {(provided) => (
             <div
@@ -230,6 +231,14 @@ export const List = ({ kanban, list }: Properties) => {
                       },
                       'separator',
                       {
+                        icon: <MdPalette />,
+                        text: 'Color…',
+                        onClick() {
+                          setMenu(`color-${list.id}`);
+                        },
+                      },
+                      'separator',
+                      {
                         icon: <MdDriveFileMoveOutline />,
                         text: 'Move all cards in this list',
                         onClick() {
@@ -259,6 +268,13 @@ export const List = ({ kanban, list }: Properties) => {
                     lists={lists}
                     onClick={(toList) => {
                       moveAllCardsToList(list, toList);
+                    }}
+                  />
+                  <ColorPicker
+                    menuId={`color-${list.id}`}
+                    currentColor={list.color}
+                    onPick={(color) => {
+                      updateList({ ...list, color });
                     }}
                   />
                 </div>
