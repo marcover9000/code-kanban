@@ -5,7 +5,9 @@ export class ShortcutBounceViewProvider implements vscode.WebviewViewProvider {
 
   resolveWebviewView(view: vscode.WebviewView): void {
     view.webview.options = { enableScripts: false };
-    view.webview.html = '<!DOCTYPE html><html><body></body></html>';
+    // Minimal body that paints nothing — reduces what the user sees during the bounce frame.
+    view.webview.html =
+      '<!DOCTYPE html><html><head><style>html,body{background:transparent;margin:0;padding:0;height:0;overflow:hidden;}</style></head><body></body></html>';
 
     void this.bounce();
 
@@ -23,8 +25,11 @@ export class ShortcutBounceViewProvider implements vscode.WebviewViewProvider {
 
     this.bouncing = true;
     try {
+      // Queue closeSidebar first (fire-and-forget) so VSCode starts collapsing
+      // the sidebar in parallel with the toggle, instead of waiting for the
+      // toggle to finish opening the editor.
+      void vscode.commands.executeCommand('workbench.action.closeSidebar');
       await vscode.commands.executeCommand('code-kanban.toggle');
-      await vscode.commands.executeCommand('workbench.action.closeSidebar');
     } finally {
       this.bouncing = false;
     }
