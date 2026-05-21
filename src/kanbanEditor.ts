@@ -1,6 +1,7 @@
 
 import * as vscode from 'vscode';
 import { type Kanban, toJson } from './kanban/models/kanban';
+import { buildWebviewHtml, readSidebarSettings } from './webviewHtml';
 
 const viewType = 'code-kanban.edit';
 
@@ -78,49 +79,12 @@ export class KanbanEditorProvider implements vscode.CustomTextEditorProvider {
   }
 
   private getHtmlForWebview(webview: vscode.Webview): string {
-    const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'dist', 'kanban.js'));
-    const theme =
-      vscode.workspace.getConfiguration().get<'dark' | 'light' | 'system' | undefined>('code-kanban.theme') ??
-      'system';
-    const showDescription =
-      vscode.workspace.getConfiguration().get<boolean>('code-kanban.show-description') ?? true;
-    const showTaskList = vscode.workspace.getConfiguration().get<boolean>('code-kanban.show-task-list') ?? true;
-    const cssUri = webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, 'assets', 'css', 'main.css'));
-    const themeUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(
-        this.context.extensionUri,
-        'assets',
-        'css',
-        theme === 'dark' ? 'dark.css' : theme === 'light' ? 'light.css' : 'system.css'
-      )
-    );
-    const nonce = crypto.randomUUID();
-
-    return `<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: ${webview.cspSource}; style-src 'unsafe-inline' https://fonts.googleapis.com ${webview.cspSource}; font-src https://fonts.gstatic.com; script-src 'nonce-${nonce}';">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;800&display=swap" rel="stylesheet">
-				<title>Code Kanban</title>
-        <link rel="stylesheet" nonce="${nonce}" href="${cssUri.toString()}">
-        <link rel="stylesheet" nonce="${nonce}" href="${themeUri.toString()}">
-			</head>
-			<body>
-        <script nonce="${nonce}">
-          window.settings = {
-            showDescription: ${showDescription},
-            showTaskList: ${showTaskList},
-          };
-        </script>
-				<div id="root">
-				</div>
-				<script nonce="${nonce}" src="${scriptUri.toString()}"></script>
-			</body>
-			</html>`;
+    const sidebarSettings = readSidebarSettings();
+    return buildWebviewHtml(webview, this.context.extensionUri, {
+      mode: 'editor',
+      ...sidebarSettings,
+      collapsedLists: {},
+    });
   }
 
   private async updateTextDocument(document: vscode.TextDocument, kanban: Kanban): Promise<boolean> {
