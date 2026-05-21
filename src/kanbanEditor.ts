@@ -97,6 +97,13 @@ export class KanbanEditorProvider implements vscode.CustomTextEditorProvider {
     const edit = new vscode.WorkspaceEdit();
     edit.replace(document.uri, new vscode.Range(0, 0, document.lineCount, 0), text);
 
-    return vscode.workspace.applyEdit(edit);
+    const applied = await vscode.workspace.applyEdit(edit);
+    if (applied) {
+      // Auto-save: every edit from the kanban UI is persisted immediately so
+      // the user never sees the "Do you want to save?" dialog when closing.
+      await document.save();
+    }
+
+    return applied;
   }
 }

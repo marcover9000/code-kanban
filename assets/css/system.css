@@ -29,7 +29,7 @@
   --success-color: #84cc16;
   --header-color: var(--vscode-titleBar-activeBackground);
 
-  --button-color: #3b82f6;
+  --button-color: var(--vscode-button-secondaryBackground, #f3f4f6);
   --button-text-color: #ffffff;
   --form-border-color: var(--vscode-panel-border);
 }

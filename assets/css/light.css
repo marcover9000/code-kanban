@@ -22,8 +22,8 @@
   --success-color: #84cc16;
   --header-color: var(--vscode-titleBar-activeBackground, #ffffff);
 
-  /* Buttons — solid blue with white text. Fixes the gray-on-blue contrast bug. */
-  --button-color: #3b82f6;
+  /* Buttons — primary uses --primary-color (blue), secondary uses --button-color (neutral) */
+  --button-color: #f3f4f6;
   --button-text-color: #ffffff;
   --form-border-color: #e5e7eb;
 }
