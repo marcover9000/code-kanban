@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { KanbanEditorProvider } from './kanbanEditor';
 import { buildInitialKanban } from './buildInitialKanban';
 import { toggleKanban } from './toggleKanban';
+import { ShortcutBounceViewProvider } from './shortcutBounceView';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -30,5 +31,10 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }),
     vscode.commands.registerCommand('code-kanban.toggle', toggleKanban)
+  );
+
+  const shortcutBounceProvider = new ShortcutBounceViewProvider();
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider('code-kanban.shortcut-view', shortcutBounceProvider)
   );
 }
