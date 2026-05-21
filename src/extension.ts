@@ -4,6 +4,7 @@ import { KanbanEditorProvider } from './kanbanEditor';
 import { buildInitialKanban } from './buildInitialKanban';
 import { toggleKanban } from './toggleKanban';
 import { ShortcutBounceViewProvider } from './shortcutBounceView';
+import { PanelBoardViewProvider } from './panelBoardView';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -36,5 +37,12 @@ export function activate(context: vscode.ExtensionContext) {
   const shortcutBounceProvider = new ShortcutBounceViewProvider();
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider('code-kanban.shortcut-view', shortcutBounceProvider)
+  );
+
+  const kanbanWatcher = vscode.workspace.createFileSystemWatcher('**/*.kanban');
+  const panelBoardProvider = new PanelBoardViewProvider(context, kanbanWatcher);
+  context.subscriptions.push(
+    kanbanWatcher,
+    vscode.window.registerWebviewViewProvider('code-kanban.panel-view', panelBoardProvider)
   );
 }
