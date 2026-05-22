@@ -5,21 +5,32 @@ import { Button } from './Button';
 
 const Icon = styled.div`
   background-color: transparent;
-  color: var(--text-color);
-  border: none;
+  color: var(--secondary-text-color);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
   outline: none;
   cursor: pointer;
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 600;
-  padding: 3px 0 0 8px;
-  margin-top: 4px;
+  font-size: 1rem;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 120ms ease-in-out,
+    color 120ms ease-in-out;
+  &:hover {
+    border-color: var(--form-border-color);
+    color: var(--text-color);
+  }
 `;
 
 const Buttons = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 8px;
 `;
 
 type Properties = {

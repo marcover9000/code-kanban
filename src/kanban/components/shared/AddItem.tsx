@@ -28,12 +28,14 @@ const AddItemLabel = styled.div`
 
 const AddItemForm = styled.div`
   width: var(--list-width);
-  padding: 8px;
-  height: 88px;
+  padding: 10px;
   background-color: var(--card-background-color, var(--secondary-background-color));
   border: 1px solid var(--form-border-color);
   border-radius: var(--border-radius);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const Label = styled.div`
@@ -103,11 +105,7 @@ export const AddItem = ({
           setName(e.target.value);
         }}
         placeholder={placeholder}
-        style={{
-          width: 'calc(100% - 16px)',
-          marginTop: '0',
-          marginBottom: '16px',
-        }}
+        style={{ width: '100%', boxSizing: 'border-box' }}
         onCompositionStart={() => {
           setIsComposing(true);
         }}
