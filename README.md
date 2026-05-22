@@ -1,10 +1,10 @@
-# Code Kanban
+# Code Kanban Boards
 
 > Simple, hackable kanban for VSCode.
 
 Personal to-do boards that live alongside your code. Toggle them open with one keystroke, drag cards while you think, and keep everything in a `.kanban` JSON file that ships with your repo (or stays out of it).
 
-![Code Kanban hero shot](./media/hero.png)
+![Code Kanban Boards hero shot](./media/hero.png)
 
 ---
 
@@ -58,7 +58,7 @@ Pick `light`, `dark`, or `system`. In `system` the kanban canvas pulls from your
 From VS Code:
 
 1. Open Extensions (`Ctrl+Shift+X`)
-2. Search for **Code Kanban**
+2. Search for **Code Kanban Boards**
 3. Install
 
 From the command line:
@@ -127,7 +127,7 @@ Boards are `.kanban` files — plain JSON. Easy to diff, version-control, share,
 
 | Action | Shortcut |
 |---|---|
-| Toggle Code Kanban | `Ctrl+Alt+K` / `Cmd+Alt+K` |
+| Toggle Code Kanban Boards | `Ctrl+Alt+K` / `Cmd+Alt+K` |
 | Open command palette | `Ctrl+Shift+P` |
 | Confirm inline input | `Enter` |
 | Add several cards in one go | `Enter` between titles in the bulk-add input |
@@ -175,4 +175,4 @@ Loose collection of ideas, not commitments:
 
 MIT — see [LICENSE](LICENSE).
 
-Originally based on [harehare/portable-kanban](https://github.com/harehare/portable-kanban) (also MIT). The codebase has since been substantially rewritten — Activity-bar entry points, sidebar panel mode, palette refresh, EditCard polish, configurable defaults — and is now maintained independently as Code Kanban.
+Originally based on [harehare/portable-kanban](https://github.com/harehare/portable-kanban) (also MIT). The codebase has since been substantially rewritten — Activity-bar entry points, sidebar panel mode, palette refresh, EditCard polish, configurable defaults — and is now maintained independently as Code Kanban Boards.

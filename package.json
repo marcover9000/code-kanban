@@ -1,6 +1,6 @@
 {
   "name": "code-kanban",
-  "displayName": "Code Kanban",
+  "displayName": "Code Kanban Boards",
   "description": "Lightweight kanban boards for your projects, embedded in VSCode.",
   "version": "0.2.3",
   "author": "Marc Sanahuja",
@@ -46,7 +46,7 @@
     "customEditors": [
       {
         "viewType": "code-kanban.edit",
-        "displayName": "Code Kanban",
+        "displayName": "Code Kanban Boards",
         "selector": [
           {
             "filenamePattern": "*.kanban"
