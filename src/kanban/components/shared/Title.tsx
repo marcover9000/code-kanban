@@ -19,11 +19,28 @@ type Properties = {
   onEnter: (text: string) => void;
 };
 
-export const Title = ({ title: defaultTitle, fontSize, width, onEnter }: Properties) => {
+export type TitleHandle = {
+  startEdit: () => void;
+};
+
+export const Title = React.forwardRef<TitleHandle, Properties>(function Title(
+  {title: defaultTitle, fontSize, width, onEnter},
+  forwardedRef
+) {
   const [isEdit, setEdit] = React.useState(false);
   const [title, setTitle] = React.useState(defaultTitle);
   const referenceDefaultTitle = React.useRef(defaultTitle);
   const [isComposing, setIsComposing] = React.useState(false);
+
+  React.useImperativeHandle(
+    forwardedRef,
+    () => ({
+      startEdit: () => {
+        setEdit(true);
+      },
+    }),
+    []
+  );
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key !== 'Enter' || isComposing) {
@@ -107,4 +124,4 @@ export const Title = ({ title: defaultTitle, fontSize, width, onEnter }: Propert
       )}
     </>
   );
-};
+});

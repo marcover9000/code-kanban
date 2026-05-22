@@ -25,7 +25,7 @@ import { DatePicker } from '../components/shared/DatePicker';
 import { Description } from '../components/shared/Description';
 import { ProgressBar } from '../components/shared/ProgressBar';
 import { TextBaseBold } from '../components/shared/Text';
-import { Title } from '../components/shared/Title';
+import { Title, type TitleHandle } from '../components/shared/Title';
 import { type Comment as CommentModel } from '../models/kanban';
 import { selectors, actions, kanbanActions } from '../store';
 import { uuid } from '../utils';
@@ -85,12 +85,24 @@ const CardTitleHead = styled(Head)`
      never bumps into it. */
   padding-right: 32px;
   .editable-hint {
-    opacity: 0;
+    background: transparent;
+    border: none;
+    padding: 0 4px;
+    margin-left: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--secondary-text-color);
     font-size: 1.1rem;
-    margin-left: 6px;
+    cursor: pointer;
     flex-shrink: 0;
-    transition: opacity 120ms ease-in-out;
+    opacity: 0;
+    transition:
+      opacity 120ms ease-in-out,
+      color 120ms ease-in-out;
+  }
+  .editable-hint:hover {
+    color: var(--primary-color);
   }
   &:hover .editable-hint {
     opacity: 1;
@@ -150,6 +162,7 @@ const EditCard = () => {
     [cardId, list?.cards]
   );
   const [isArchived, setArchived] = React.useState(Boolean(archivedCard));
+  const titleRef = React.useRef<TitleHandle>(null);
   const taskList = React.useMemo(
     () =>
       card?.checkboxes.map((c, index) => (
@@ -390,6 +403,7 @@ const EditCard = () => {
                 <MdSubtitles />
               </Icon>
               <Title
+                ref={titleRef}
                 title={card?.title ?? ''}
                 fontSize={'large'}
                 width={'auto'}
@@ -404,7 +418,17 @@ const EditCard = () => {
                   });
                 }}
               />
-              <MdEdit className="editable-hint" aria-hidden />
+              <button
+                type="button"
+                aria-label="Edit title"
+                className="editable-hint"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  titleRef.current?.startEdit();
+                }}
+              >
+                <MdEdit aria-hidden />
+              </button>
             </CardTitleHead>
           </Line>
           {(globalThis as any).settings.showDescription && (
