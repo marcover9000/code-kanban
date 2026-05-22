@@ -325,8 +325,8 @@ const EditCard = () => {
     }
 
     archiveCard(list, card);
-    setArchived(true);
-  }, [list, card]);
+    navigate('/');
+  }, [list, card, navigate]);
 
   const handleRestoreCard = React.useCallback(() => {
     if (!list || !archivedCard) {
