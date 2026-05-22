@@ -8,8 +8,8 @@ import { LabelEdit } from './Edit';
 
 const Modal = styled.div`
   position: absolute;
-  right: 0;
-  top: 32px;
+  left: 0;
+  top: 36px;
   display: flex;
   flex-direction: column;
   gap: 6px;

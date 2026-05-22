@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from 'styled-components';
 import { type Card } from '../models/kanban';
-import { getContrastTextColor } from '../utils';
+import { hexToRgba } from '../utils';
 
 const Container = styled.div<{ $selected: boolean; $accentColor: string }>`
   background-color: var(--card-background-color);
@@ -44,11 +44,13 @@ const Labels = styled.div`
 `;
 
 const LabelPill = styled.span<{ $color: string }>`
-  background-color: ${(p) => p.$color};
-  color: ${(p) => getContrastTextColor(p.$color)};
+  background-color: ${(p) => hexToRgba(p.$color, 0.15)};
+  color: ${(p) => p.$color};
+  border: 1px solid ${(p) => hexToRgba(p.$color, 0.3)};
   border-radius: 8px;
   font-size: 0.7rem;
-  padding: 1px 6px;
+  font-weight: 500;
+  padding: 1px 8px;
 `;
 
 const Footer = styled.div`

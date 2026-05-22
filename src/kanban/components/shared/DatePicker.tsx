@@ -10,15 +10,15 @@ type Props = {
 export const DatePicker = ({ value, onChange }: Props) => {
   const date = React.useMemo(() => {
     try {
-      return value ? format(value, "yyyy-MM-dd'T'HH:mm") : undefined;
+      return value ? format(value, 'yyyy-MM-dd') : undefined;
     } catch {
-      return format(new Date(), "yyyy-MM-dd'T'HH:mm");
+      return format(new Date(), 'yyyy-MM-dd');
     }
   }, [value]);
 
   return (
     <Input
-      type="datetime-local"
+      type="date"
       style={{ width: 'calc(100% - 16px)', marginLeft: '8px' }}
       value={date}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

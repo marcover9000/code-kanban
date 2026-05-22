@@ -21,3 +21,17 @@ export const getContrastTextColor = (hexColor: string): string => {
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.6 ? '#1f2937' : '#ffffff';
 };
+
+/**
+ * Converts a hex color like '#84cc16' to an rgba() string with the supplied
+ * alpha channel (0..1). Used to render Linear/Notion-style tinted backgrounds
+ * for label pills (faint coloured bg + the original colour as text).
+ */
+export const hexToRgba = (hexColor: string, alpha: number): string => {
+  const hex = hexColor.replace('#', '');
+  if (hex.length !== 6) return `rgba(0, 0, 0, ${alpha})`;
+  const r = Number.parseInt(hex.slice(0, 2), 16);
+  const g = Number.parseInt(hex.slice(2, 4), 16);
+  const b = Number.parseInt(hex.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};

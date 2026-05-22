@@ -9,7 +9,7 @@ import { styled } from 'styled-components';
 import { useAutoFocus } from '../hooks/useAutoFocus';
 import { type Card as CardModel } from '../models/kanban';
 import { actions } from '../store';
-import { getContrastTextColor } from '../utils';
+import { hexToRgba } from '../utils';
 import { TextXs } from './shared/Text';
 
 const Container = styled.div`
@@ -78,13 +78,13 @@ const CardInfoIcon = styled.div`
 `;
 
 const Label = styled.div`
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   line-height: 1.25rem;
-  color: var(--light-text-color);
   border-radius: var(--border-radius);
   margin-right: 2px;
-  font-weight: 600;
-  padding: 0 8px;
+  font-weight: 500;
+  padding: 1px 8px;
+  border: 1px solid transparent;
 `;
 
 type Properties = {
@@ -206,7 +206,14 @@ export const Card = ({ card, onEnter, onBlur, editable = true, isEdit = false }:
             {sortedLabels.length > 0 && (
               <Labels>
                 {sortedLabels.map((l) => (
-                  <Label key={l.id} style={{ backgroundColor: l.color, color: getContrastTextColor(l.color) }}>
+                  <Label
+                    key={l.id}
+                    style={{
+                      backgroundColor: hexToRgba(l.color, 0.15),
+                      color: l.color,
+                      borderColor: hexToRgba(l.color, 0.3),
+                    }}
+                  >
                     {l.title}
                   </Label>
                 ))}

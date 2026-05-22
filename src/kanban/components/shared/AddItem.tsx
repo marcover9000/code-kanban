@@ -28,14 +28,10 @@ const AddItemLabel = styled.div`
 
 const AddItemForm = styled.div`
   width: var(--list-width);
-  padding: 10px;
-  background-color: var(--card-background-color, var(--secondary-background-color));
-  border: 1px solid var(--form-border-color);
-  border-radius: var(--border-radius);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const Label = styled.div`
