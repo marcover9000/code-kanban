@@ -152,6 +152,7 @@ export const SidebarList = ({
                         card={c}
                         selected={c.id === selectedCardId}
                         settings={cardSettings}
+                        accentColor={accentColor}
                         onClick={() => {
                           onSelectCard(c.id);
                         }}

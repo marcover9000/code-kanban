@@ -2,16 +2,18 @@ import * as React from 'react';
 import { styled } from 'styled-components';
 import { type Card } from '../models/kanban';
 
-const Container = styled.div<{ $selected: boolean }>`
+const Container = styled.div<{ $selected: boolean; $accentColor: string }>`
   background-color: var(--card-background-color);
-  border: 1px solid ${(p) => (p.$selected ? 'var(--primary-color)' : 'var(--form-border-color)')};
+  border: 1px solid ${(p) => (p.$selected ? p.$accentColor : 'var(--form-border-color)')};
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 6px;
   cursor: grab;
   font-size: 0.85rem;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 120ms ease-in-out;
+  transition:
+    box-shadow 120ms ease-in-out,
+    border-color 120ms ease-in-out;
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   }
@@ -67,17 +69,18 @@ type Props = {
   card: Card;
   selected: boolean;
   settings: Settings;
+  accentColor: string;
   onClick: () => void;
 };
 
-export const SidebarCard = ({ card, selected, settings, onClick }: Props) => {
+export const SidebarCard = ({ card, selected, settings, accentColor, onClick }: Props) => {
   const firstLine = card.description.split('\n')[0] ?? '';
   const totalChecks = card.checkboxes.length;
   const checkedChecks = card.checkboxes.filter((c) => c.checked).length;
   const dueDateLabel = card.dueDate ? new Date(card.dueDate).toLocaleDateString() : undefined;
 
   return (
-    <Container $selected={selected} onClick={onClick}>
+    <Container $selected={selected} $accentColor={accentColor} onClick={onClick}>
       <Title>{card.title}</Title>
       {settings.showDescription && firstLine && <Description>{firstLine}</Description>}
       {settings.showLabels && card.labels.length > 0 && (
