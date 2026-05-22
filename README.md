@@ -98,8 +98,8 @@ Kanban boards are stored as `.kanban` files in JSON format, making them:
 
 ### Setup
 ```bash
-git clone https://github.com/marcover9000/portable-kanban.git
-cd portable-kanban
+git clone https://github.com/marcover9000/code-kanban.git
+cd code-kanban
 npm install
 ```
 
@@ -141,6 +141,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 🐛 [Report bugs](https://github.com/marcover9000/portable-kanban/issues)
-- 💡 [Request features](https://github.com/marcover9000/portable-kanban/issues)
-- ⭐ [Star the project](https://github.com/marcover9000/portable-kanban) if you find it useful!
+- 🐛 [Report bugs](https://github.com/marcover9000/code-kanban/issues)
+- 💡 [Request features](https://github.com/marcover9000/code-kanban/issues)
+- ⭐ [Star the project](https://github.com/marcover9000/code-kanban) if you find it useful!
