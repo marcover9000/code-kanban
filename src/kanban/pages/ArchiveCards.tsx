@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MdDeleteOutline, MdRestore } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { TextBaseBold } from '../components/shared/Text';
 import { type Card as CardModel } from '../models/kanban';
@@ -47,6 +47,14 @@ const Row = styled.div`
   border: 1px solid var(--form-border-color);
   border-left: 3px solid var(--secondary-text-color);
   border-radius: var(--border-radius);
+  cursor: pointer;
+  transition:
+    border-color 120ms ease-in-out,
+    box-shadow 120ms ease-in-out;
+  &:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  }
 `;
 
 const Body = styled.div`
@@ -121,6 +129,8 @@ export const ArchiveCards = ({cards}: Properties) => {
   const restoreCard = kanbanActions.useRestoreCard();
   const deleteCard = kanbanActions.useDeleteCard();
   const navigate = useNavigate();
+  const location = useLocation();
+  const backgroundLocation = (location.state as {backgroundLocation?: unknown})?.backgroundLocation;
 
   return (
     <Overlay
@@ -140,7 +150,12 @@ export const ArchiveCards = ({cards}: Properties) => {
           <EmptyState>Nothing archived yet.</EmptyState>
         ) : (
           cards.map((c) => (
-            <Row key={c.id}>
+            <Row
+              key={c.id}
+              onClick={() => {
+                navigate(`/list/${c.listId}/card/${c.id}`, {state: {backgroundLocation}});
+              }}
+            >
               <Body>
                 <Title>{c.title}</Title>
                 {c.labels.length > 0 && (
