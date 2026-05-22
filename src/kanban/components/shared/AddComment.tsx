@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { styled } from 'styled-components';
-import { AddButton } from './AddButton';
 
 const AddItemForm = styled.div`
   width: 100%;
@@ -10,22 +9,6 @@ const AddItemForm = styled.div`
   margin-top: 4px;
 `;
 
-const TextArea = styled.textarea`
-  font-family: var(--font-family);
-  color: var(--secondary-color);
-  border-radius: var(--border-radius);
-  outline: none;
-  border: none;
-  resize: none;
-  padding: 8px;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  background-color: transparent;
-  &:focus {
-    outline: none;
-  }
-`;
-
 type Properties = {
   addText: string;
   placeholder: string;
@@ -33,11 +16,21 @@ type Properties = {
   onEnter: (text: string) => void;
 };
 
-export const AddComment = ({ addText, placeholder, type, onEnter }: Properties) => {
+export const AddComment = ({placeholder, onEnter}: Properties) => {
   const [text, setText] = React.useState('');
+
+  const commit = React.useCallback(() => {
+    const trimmed = text.trim();
+    if (trimmed.length > 0) {
+      onEnter(trimmed);
+      setText('');
+    }
+  }, [text, onEnter]);
+
   return (
     <AddItemForm>
       <textarea
+        autoFocus
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
           setText(e.target.value);
         }}
@@ -46,6 +39,16 @@ export const AddComment = ({ addText, placeholder, type, onEnter }: Properties) 
         }}
         onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => {
           e.currentTarget.style.borderColor = 'var(--form-border-color)';
+          commit();
+        }}
+        onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+          // Cmd/Ctrl+Enter posts the comment without waiting for blur,
+          // matching the convention in chat apps and code editors.
+          if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+            e.preventDefault();
+            commit();
+            e.currentTarget.blur();
+          }
         }}
         style={{
           color: 'var(--text-color)',
@@ -55,31 +58,16 @@ export const AddComment = ({ addText, placeholder, type, onEnter }: Properties) 
           fontSize: '0.95rem',
           lineHeight: '1.4rem',
           minHeight: '72px',
-          marginBottom: '8px',
           padding: '8px',
           border: '1px solid var(--form-border-color)',
           borderRadius: 'var(--border-radius)',
           outline: 'none',
           resize: 'vertical',
           transition: 'border-color 120ms ease-in-out',
-          boxSizing: 'border-box',
         }}
         placeholder={placeholder}
         value={text}
-        autoFocus={true}
       />
-      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <AddButton
-          text={addText}
-          type={type}
-          canClose={false}
-          disabled={false}
-          onAddClick={() => {
-            onEnter(text);
-            setText('');
-          }}
-        />
-      </div>
     </AddItemForm>
   );
 };
