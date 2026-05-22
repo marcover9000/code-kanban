@@ -14,7 +14,7 @@ const Container = styled.div`
 type Properties = {
   title: string;
   fontSize: 'small' | 'medium' | 'large';
-  width: number | '100%';
+  width: number | '100%' | 'auto';
   editable?: boolean;
   onEnter: (text: string) => void;
 };
@@ -63,7 +63,7 @@ export const Title = ({ title: defaultTitle, fontSize, width, onEnter }: Propert
           }}
           placeholder="Enter list title"
           style={{
-            width: width === '100%' ? '100%' : `${width}px`,
+            width: width === '100%' || width === 'auto' ? width : `${width}px`,
             fontWeight: 800,
             fontFamily: 'var(--font-family)',
             backgroundColor: 'var(--secondary-background-color)',
@@ -93,7 +93,7 @@ export const Title = ({ title: defaultTitle, fontSize, width, onEnter }: Propert
           style={{
             fontSize: fontSize === 'medium' ? '1rem' : fontSize === 'small' ? '0.875rem' : '1.5rem',
             color: 'var(--text-color)',
-            width: width === '100%' ? '100%' : `${width}px`,
+            width: width === '100%' || width === 'auto' ? width : `${width}px`,
             padding: '4px',
             cursor: 'pointer',
           }}

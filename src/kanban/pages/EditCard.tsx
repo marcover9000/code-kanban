@@ -81,11 +81,15 @@ const Head = styled.div`
 
 const CardTitleHead = styled(Head)`
   gap: 4px;
+  /* Reserve room on the right for the close (X) button so the title
+     never bumps into it. */
+  padding-right: 32px;
   .editable-hint {
     opacity: 0;
     color: var(--secondary-text-color);
     font-size: 1.1rem;
-    margin-left: 4px;
+    margin-left: 6px;
+    flex-shrink: 0;
     transition: opacity 120ms ease-in-out;
   }
   &:hover .editable-hint {
@@ -388,7 +392,7 @@ const EditCard = () => {
               <Title
                 title={card?.title ?? ''}
                 fontSize={'large'}
-                width={'100%'}
+                width={'auto'}
                 onEnter={(title) => {
                   if (!list || !card) {
                     return;
