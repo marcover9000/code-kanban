@@ -426,30 +426,40 @@ const EditCard = () => {
                 </Icon>
                 <TextBaseBold>Task List</TextBaseBold>
               </Head>
-              <div style={{ margin: '8px -16px 8px -16px' }}>
-                {card && card.checkboxes.length > 0 && (
+              {card && card.checkboxes.length > 0 && (
+                <div style={{ margin: '8px 0' }}>
                   <ProgressBar
                     progress={
                       ((card.checkboxes.filter((c) => c.checked).length ?? 0) / (card.checkboxes.length ?? 1)) * 100
                     }
                   />
-                )}
-              </div>
-              <Droppable droppableId={card?.id ?? ''} type="tasks">
-                {(provided) => (
-                  <div ref={provided.innerRef} style={{ width: 'calc(100% - 16px)' }}>
-                    <div>
-                      {taskList} {provided.placeholder}
+                </div>
+              )}
+              <div
+                style={{
+                  border: '1px solid var(--form-border-color)',
+                  borderRadius: 'var(--border-radius)',
+                  padding: '8px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '6px',
+                  marginTop: '8px',
+                }}
+              >
+                <Droppable droppableId={card?.id ?? ''} type="tasks">
+                  {(provided) => (
+                    <div ref={provided.innerRef}>
+                      {taskList}
+                      {provided.placeholder}
                     </div>
-                  </div>
-                )}
-              </Droppable>
-              <div style={{ margin: '0 12px' }}>
+                  )}
+                </Droppable>
                 <AddItem
                   enableContinuousInput
                   addText="Add item"
                   placeholder="Add item"
                   type="primary"
+                  fullWidth
                   onEnter={handleAddTask}
                 />
               </div>

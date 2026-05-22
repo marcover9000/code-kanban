@@ -52,6 +52,7 @@ type Properties = {
   addText: string;
   placeholder: string;
   type: 'primary' | 'secondary' | 'danger';
+  fullWidth?: boolean;
   onEnter: (text: string) => void;
 };
 
@@ -61,6 +62,7 @@ export const AddItem = ({
   addText,
   placeholder,
   type,
+  fullWidth = false,
   onEnter,
 }: Properties) => {
   const [isAddItem, setIsAddItem] = React.useState(showInput);
@@ -95,7 +97,7 @@ export const AddItem = ({
   }, [showInput]);
 
   return isAddItem ? (
-    <AddItemForm>
+    <AddItemForm style={fullWidth ? {width: '100%'} : undefined}>
       <Input
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setName(e.target.value);
@@ -130,6 +132,7 @@ export const AddItem = ({
     </AddItemForm>
   ) : (
     <AddItemLabel
+      style={fullWidth ? {width: '100%'} : undefined}
       onClick={() => {
         setIsAddItem(true);
       }}

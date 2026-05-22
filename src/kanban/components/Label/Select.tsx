@@ -3,7 +3,7 @@ import { MdCheck, MdEdit } from 'react-icons/md';
 import { styled } from 'styled-components';
 import { type Card, type Label, type List } from '../../models/kanban';
 import { selectors, kanbanActions } from '../../store';
-import { getContrastTextColor } from '../../utils';
+import { hexToRgba } from '../../utils';
 import { LabelEdit } from './Edit';
 
 const Modal = styled.div`
@@ -39,20 +39,20 @@ const LabelRow = styled.div`
 
 const LabelPill = styled.div<{ $color: string }>`
   flex: 1;
-  background-color: ${(p) => p.$color};
-  color: ${(p) => getContrastTextColor(p.$color)};
+  background-color: ${(p) => hexToRgba(p.$color, 0.15)};
+  color: ${(p) => p.$color};
+  border: 1px solid ${(p) => hexToRgba(p.$color, 0.3)};
   border-radius: var(--border-radius);
   font-size: 0.85rem;
   font-weight: 500;
-  padding: 4px 10px;
+  padding: 3px 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid transparent;
   transition: border-color 120ms ease-in-out;
   &:hover {
-    border-color: var(--primary-color);
+    border-color: ${(p) => p.$color};
   }
 `;
 
