@@ -7,6 +7,10 @@
   "license": "MIT",
   "publisher": "marcover9000",
   "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#0F172A",
+    "theme": "dark"
+  },
   "private": true,
   "engines": {
     "vscode": "^1.101.0"
@@ -15,12 +19,23 @@
     "Other"
   ],
   "keywords": [
-    "kanban"
+    "kanban",
+    "todo",
+    "task",
+    "board",
+    "project-management",
+    "agile",
+    "productivity",
+    "notes"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/marcover9000/code-kanban.git"
   },
+  "bugs": {
+    "url": "https://github.com/marcover9000/code-kanban/issues"
+  },
+  "homepage": "https://github.com/marcover9000/code-kanban#readme",
   "activationEvents": [
     "onStartupFinished",
     "onView:code-kanban.shortcut-view",
