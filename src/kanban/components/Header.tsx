@@ -132,6 +132,7 @@ export const Header = ({ title }: Props) => {
         />
         <IconButton
           icon={<MdFilterAlt />}
+          active={location.pathname === '/filters' || (searchLabels.size ?? 0) > 0}
           onClick={() => {
             navigate('/filters', { state: { backgroundLocation: location } });
           }}

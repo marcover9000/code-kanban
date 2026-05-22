@@ -5,6 +5,7 @@ import { CheckBox } from '../components/shared/CheckBox';
 import { TextBaseBold } from '../components/shared/Text';
 import { type Settings } from '../models/kanban';
 import { actions, selectors } from '../store';
+import { hexToRgba } from '../utils';
 
 const Overlay = styled.div`
   width: 100%;
@@ -31,13 +32,13 @@ const Container = styled.div`
 const LabelItem = styled.div`
   width: 100%;
   max-width: 140px;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.5rem;
-  color: var(--light-text-color);
   border-radius: var(--border-radius);
+  border: 1px solid transparent;
   margin-right: 4px;
-  font-weight: 600;
-  padding: 4px 8px;
+  font-weight: 500;
+  padding: 2px 10px;
   margin-bottom: 8px;
   cursor: pointer;
   display: flex;
@@ -91,7 +92,11 @@ export const Filter = ({ settings }: Properties) => {
               />
             </div>
             <LabelItem
-              style={{ backgroundColor: label.color }}
+              style={{
+                backgroundColor: hexToRgba(label.color, 0.15),
+                color: label.color,
+                borderColor: hexToRgba(label.color, 0.3),
+              }}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                 e.stopPropagation();
                 if (filteredLabels.has(label.title)) {
