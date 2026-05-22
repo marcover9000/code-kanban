@@ -136,8 +136,11 @@ const ArchivedBanner = styled.div`
   align-items: center;
   gap: 8px;
   padding: 8px 18px;
+  /* Tinted amber strip that reads on both light and dark themes —
+     the warning-color (#f59e0b) is the same in light, dark, system so
+     the band is consistent. */
   background-color: rgba(245, 158, 11, 0.12);
-  color: #b45309;
+  color: var(--warning-color);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.04em;
