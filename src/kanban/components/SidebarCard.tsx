@@ -19,7 +19,7 @@ const Container = styled.div<{ $selected: boolean }>`
 
 const Title = styled.div`
   color: var(--main-color);
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 4px;
   word-break: break-word;
 `;
