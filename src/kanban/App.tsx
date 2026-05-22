@@ -5,6 +5,7 @@ import { fromJson, archiveCard } from './models/kanban';
 import { ArchiveCards } from './pages/ArchiveCards';
 import { ArchiveLists } from './pages/ArchiveLists';
 import { Board } from './pages/Board';
+import { SidebarBoard } from './pages/SidebarBoard';
 import { EditCard } from './pages/EditCard';
 import { Filter } from './pages/Filter';
 import { selectors, actions, setIsLoadingFromFile } from './store';
@@ -34,7 +35,9 @@ const App = () => {
     };
 
     window.addEventListener('message', onMessage);
-    navigate('/');
+    const g = globalThis as Record<string, unknown>;
+    const mode = typeof g.codeKanbanMode === 'string' ? g.codeKanbanMode : 'editor';
+    navigate(mode === 'sidebar' ? '/sidebar' : '/');
     vscode.postMessage({
       type: 'load',
     });
@@ -47,6 +50,7 @@ const App = () => {
     <>
       <Routes location={state?.backgroundLocation ?? location}>
         <Route path="/" element={<Board />} />
+        <Route path="/sidebar" element={<SidebarBoard />} />
       </Routes>
       {(state?.backgroundLocation ?? location.pathname.startsWith('/list')) && (
         <Routes>

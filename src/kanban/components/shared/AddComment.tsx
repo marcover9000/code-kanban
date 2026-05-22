@@ -41,16 +41,28 @@ export const AddComment = ({ addText, placeholder, type, onEnter }: Properties) 
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
           setText(e.target.value);
         }}
+        onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => {
+          e.currentTarget.style.borderColor = 'var(--primary-color)';
+        }}
+        onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => {
+          e.currentTarget.style.borderColor = 'var(--form-border-color)';
+        }}
         style={{
           color: 'var(--text-color)',
-          backgroundColor: 'var(--secondary-background-color)',
+          backgroundColor: 'var(--card-background-color, var(--secondary-background-color))',
           width: '100%',
-          fontSize: '1rem',
+          fontFamily: 'var(--font-family)',
+          fontSize: '0.95rem',
+          lineHeight: '1.4rem',
           minHeight: '72px',
           marginBottom: '8px',
           padding: '8px',
-          borderColor: 'var(--form-border-color)',
+          border: '1px solid var(--form-border-color)',
+          borderRadius: 'var(--border-radius)',
           outline: 'none',
+          resize: 'vertical',
+          transition: 'border-color 120ms ease-in-out',
+          boxSizing: 'border-box',
         }}
         placeholder={placeholder}
         value={text}

@@ -34,14 +34,25 @@ const Search = styled.div`
   width: calc(100% - 120px);
   display: flex;
   align-items: center;
+  background-color: var(--card-background-color, var(--secondary-background-color));
+  border: 1px solid var(--form-border-color);
+  border-radius: var(--border-radius);
+  margin-left: 16px;
+  padding: 0 8px;
+  transition: border-color 120ms ease-in-out;
+  &:focus-within {
+    border-color: var(--primary-color);
+  }
 `;
 
 const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  margin-left: 24px;
+  font-size: 1rem;
+  color: var(--secondary-text-color);
+  margin-right: 6px;
+  flex-shrink: 0;
 `;
 
 const Title = styled.div`
@@ -89,11 +100,11 @@ export const Header = ({ title }: Props) => {
         </Icon>
         <Input
           style={{
-            width: '100%',
-            color: 'var(--secondary-color)',
+            flex: 1,
+            color: 'var(--text-color)',
             backgroundColor: 'transparent',
-            marginRight: '48px',
-            padding: '8px',
+            border: 'none',
+            padding: '6px 4px',
           }}
           value={searchInput}
           autoComplete="off"

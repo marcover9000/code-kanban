@@ -2,14 +2,15 @@ import Fuse from 'fuse.js';
 import * as React from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { FiPlus } from 'react-icons/fi';
-import { MdAdd, MdArchive, MdDriveFileMoveOutline, MdMenu, MdOutlineArchive, MdSortByAlpha } from 'react-icons/md';
+import { MdAdd, MdArchive, MdDriveFileMoveOutline, MdMenu, MdOutlineArchive, MdPalette, MdSortByAlpha } from 'react-icons/md';
 import { styled } from 'styled-components';
 import { type Kanban as KanbanModel, type List as ListModel, type Card as CardModel, newCard } from '../models/kanban';
 import { selectors, actions, kanbanActions } from '../store';
 import { uuid } from '../utils';
 import { Card } from './Card';
+import { ColorPicker } from './ColorPicker';
 import { SelectList } from './SelectList';
-import { AddButton } from './shared/AddButton';
+import { Input } from './shared/Input';
 import { Menu } from './shared/Menu';
 import { TextSm, TextXs } from './shared/Text';
 import { Title } from './shared/Title';
@@ -19,11 +20,43 @@ const Container = styled.div`
   margin: 8px 0 8px 8px;
 `;
 
-const Contents = styled.div`
+const Contents = styled.div<{ $accentColor: string; $isDraggingOver: boolean }>`
   padding: 8px;
   border-radius: var(--border-radius);
   background-color: var(--primary-background-color);
-  box-shadow: var(--shadow-sm);
+  border-top: 3px solid ${(p) => p.$accentColor};
+  box-shadow: ${(p) =>
+    p.$isDraggingOver
+      ? `inset 0 0 0 2px ${p.$accentColor}, var(--shadow-sm)`
+      : 'var(--shadow-sm)'};
+  transition:
+    box-shadow 120ms ease-in-out,
+    background-color 120ms ease-in-out;
+`;
+
+const ColumnHeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-bottom: 8px;
+  position: relative;
+`;
+
+const ColumnTitleWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+`;
+
+const ColumnDot = styled.span<{ $color: string }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: ${(p) => p.$color};
+  flex-shrink: 0;
 `;
 
 const Cards = styled.div`
@@ -162,42 +195,41 @@ export const List = ({ kanban, list }: Properties) => {
     [lists, list, settings.labels, addCards]
   );
 
+  const accentColor = list.color ?? 'var(--primary-color)';
+
   return (
     <Container>
-      <Contents>
-        <Droppable droppableId={list.id} type="cards">
-          {(provided) => (
-            <div
-              ref={provided.innerRef}
-              onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                // Prevent click from bubbling up to Board container when adding a card
-                if (list.id === addingCard?.listId) {
-                  e.stopPropagation();
-                }
-              }}
-            >
+      <Droppable droppableId={list.id} type="cards">
+        {(provided, snapshot) => (
+          <Contents
+            $accentColor={accentColor}
+            $isDraggingOver={snapshot.isDraggingOver}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+              // Prevent click from bubbling up to Board container when adding a card
+              if (list.id === addingCard?.listId) {
+                e.stopPropagation();
+              }
+            }}
+          >
+            <div>
               <Header>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    paddingLeft: '8px',
-                    paddingBottom: '8px',
-                    position: 'relative',
-                  }}
-                >
-                  <Title
-                    title={list.title}
-                    fontSize={'medium'}
-                    width={180}
-                    onEnter={(text) => {
-                      updateList({
-                        ...list,
-                        title: text,
-                      });
-                    }}
-                  />
+                <ColumnHeaderRow>
+                  <ColumnTitleWrap>
+                    <ColumnDot $color={accentColor} />
+                    <Title
+                      title={list.title}
+                      fontSize={'small'}
+                      width={160}
+                      onEnter={(text) => {
+                        updateList({
+                          ...list,
+                          title: text,
+                        });
+                      }}
+                    />
+                  </ColumnTitleWrap>
                   <Menu
                     id={`list-${list.id}`}
                     position="right"
@@ -225,6 +257,14 @@ export const List = ({ kanban, list }: Properties) => {
                         onClick() {
                           setSortOrder(list.id, 'titleDesc');
                           sortListCards(list.id, 'titleDesc');
+                        },
+                      },
+                      'separator',
+                      {
+                        icon: <MdPalette />,
+                        text: 'Color…',
+                        onClick() {
+                          setMenu(`color-${list.id}`);
                         },
                       },
                       'separator',
@@ -260,7 +300,14 @@ export const List = ({ kanban, list }: Properties) => {
                       moveAllCardsToList(list, toList);
                     }}
                   />
-                </div>
+                  <ColorPicker
+                    menuId={`color-${list.id}`}
+                    currentColor={list.color}
+                    onPick={(color) => {
+                      updateList({ ...list, color });
+                    }}
+                  />
+                </ColumnHeaderRow>
               </Header>
               <TextXs
                 style={{
@@ -286,34 +333,35 @@ export const List = ({ kanban, list }: Properties) => {
                 </Cards>
               </div>
               {list.id === addingCard?.listId ? (
-                <Card
-                  card={addingCard}
-                  isEdit={true}
-                  onEnter={(c) => {
-                    setAddCard(undefined);
-                    handleAddCard(c);
+                <Input
+                  autoFocus
+                  value={addingCard.title}
+                  placeholder="Card title…"
+                  style={{ width: 'calc(100% - 16px)', marginBottom: '6px', borderColor: accentColor }}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setAddCard({ ...addingCard, title: e.target.value });
                   }}
-                  onBlur={(c) => {
+                  onBlur={() => {
+                    if (addingCard.title.trim().length > 0) {
+                      handleAddCard(addingCard);
+                    }
+
                     setAddCard(undefined);
-                    handleAddCard(c);
                   }}
-                />
-              ) : (
-                <></>
-              )}
-              {list.id === addingCard?.listId ? (
-                <AddButton
-                  text="Add a card"
-                  type="primary"
-                  disabled={addingCard?.title === undefined || addingCard?.title?.replace('\n', '') === ''}
-                  canClose={true}
-                  onAddClick={() => {
-                    setAddCard(undefined);
-                    handleAddCard(addingCard);
-                  }}
-                  onCancel={() => {
-                    setAddCard(undefined);
-                    setKanban(kanban);
+                  onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      if (addingCard.title.trim().length > 0) {
+                        handleAddCard(addingCard);
+                      }
+
+                      setAddCard(undefined);
+                    }
+
+                    if (e.key === 'Escape') {
+                      setAddCard(undefined);
+                      setKanban(kanban);
+                    }
                   }}
                 />
               ) : (
@@ -330,9 +378,9 @@ export const List = ({ kanban, list }: Properties) => {
                 </AddLabel>
               )}
             </div>
-          )}
-        </Droppable>
-      </Contents>
+          </Contents>
+        )}
+      </Droppable>
     </Container>
   );
 };

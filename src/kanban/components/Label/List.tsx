@@ -23,16 +23,26 @@ const LabelItem = styled.div`
 `;
 
 const AddButton = styled.div`
-  padding: 4px 8px;
-  font-size: 1.1rem;
+  padding: 2px 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
   border-radius: var(--border-radius);
-  border: 1px solid var(--form-border-color);
-  background-color: var(--button-color);
+  border: 1px dashed var(--form-border-color);
+  background-color: transparent;
+  color: var(--secondary-text-color);
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   cursor: pointer;
   height: 24px;
+  transition:
+    border-color 120ms ease-in-out,
+    color 120ms ease-in-out;
+  &:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
 `;
 
 type Properties = {
@@ -69,6 +79,7 @@ export const LabelList = ({ list, card }: Properties) => {
         }}
       >
         <MdAdd />
+        <span>Add label</span>
       </AddButton>
       {showModal && <LabelSelect list={list} card={card} />}
     </Labels>

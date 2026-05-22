@@ -14,33 +14,28 @@ const ButtonBase = styled.button<{
   line-height: 20px;
   padding: 6px 12px;
   ${(properties) =>
-    properties.background === 'primary'
+    properties.background === 'danger'
       ? css`
-          color: var(--light-text-color);
-          background-color: var(--primary-color);
+          color: var(--button-text-color, #ffffff);
+          background-color: var(--danger-color);
         `
-      : properties.background === 'danger'
-        ? css`
-            color: var(--light-text-color);
-            background-color: var(--danger-color);
-          `
-        : css`
-            color: var(--text-color);
-            background-color: var(--button-color);
-          `}
+      : css`
+          color: var(--text-color);
+          background-color: var(--button-color);
+          border: 1px solid var(--form-border-color);
+        `}
+  transition:
+    border-color 120ms ease-in-out,
+    background-color 120ms ease-in-out;
   &:hover {
     ${(properties) =>
-      properties.background === 'primary'
+      properties.background === 'danger'
         ? css`
-            background-color: #285f8f !important;
+            background-color: #b91c1c !important;
           `
-        : properties.background === 'danger'
-          ? css`
-              background-color: #c02a33 !important;
-            `
-          : css`
-              background-color: var(--selected-color) !important;
-            `}
+        : css`
+            border-color: var(--primary-color) !important;
+          `}
   }
 `;
 
