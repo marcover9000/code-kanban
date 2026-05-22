@@ -1,0 +1,10 @@
+out
+dist
+node_modules
+.history
+.vscode-test/
+*.vsix
+.vscode
+.envrc
+settings.local.json
+.DS_Store

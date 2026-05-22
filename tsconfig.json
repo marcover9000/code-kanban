@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "target": "es2024",
+    "lib": ["es2024", "dom"],
+    "rootDir": "src",
+    "strict": true,
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+  "exclude": ["node_modules", "**/*.test.ts", "./src/kanban/**/*.tsx", "./src/kanban/**/*.ts"]
+}

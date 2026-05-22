@@ -1,0 +1,29 @@
+:root {
+  /* Canvas — pulls from VSCode theme so the area behind columns matches the installed theme */
+  --main-background-color: var(--vscode-editor-background, #ffffff);
+  --primary-background-color: var(--vscode-sideBar-background, #f3f3f3);
+  --secondary-background-color: #ffffff;
+  --card-background-color: #ffffff;
+  --list-background-color: var(--vscode-sideBar-background, #f3f3f3);
+
+  /* Text — pulls foreground from VSCode for the main text, hardcoded muted/secondary */
+  --text-color: var(--vscode-foreground, #1f2937);
+  --light-text-color: #1f2937;
+  --secondary-text-color: #6b7280;
+  --main-color: #1f2937;
+
+  --selected-color: rgba(59, 130, 246, 0.08);
+  --hover-color: rgba(0, 0, 0, 0.04);
+
+  /* Palette B accents */
+  --primary-color: #3b82f6;
+  --danger-color: #dc2626;
+  --warning-color: #f59e0b;
+  --success-color: #84cc16;
+  --header-color: var(--vscode-titleBar-activeBackground, #ffffff);
+
+  /* Buttons — primary uses --primary-color (blue), secondary uses --button-color (neutral) */
+  --button-color: #f3f4f6;
+  --button-text-color: #ffffff;
+  --form-border-color: #e5e7eb;
+}

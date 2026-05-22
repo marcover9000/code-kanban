@@ -1,0 +1,32 @@
+:root {
+  /* Canvas — explicit dark surface. Overrides VSCode if the user forced 'dark'
+     mode in the extension settings even on a light VSCode theme. */
+  --main-background-color: #18181b;
+  --primary-background-color: #27272a;
+  --secondary-background-color: #3f3f46;
+  --card-background-color: #27272a;
+  --list-background-color: #1f1f22;
+
+  /* Text */
+  --text-color: #e4e4e7;
+  --light-text-color: #e4e4e7;
+  --secondary-text-color: #a1a1aa;
+  --main-color: #e4e4e7;
+
+  --selected-color: rgba(59, 130, 246, 0.15);
+  --hover-color: rgba(255, 255, 255, 0.04);
+
+  /* Palette B accents — same as light. Lime stays vivid for the Done
+     reinforcement; blue/amber/red also unchanged. */
+  --primary-color: #3b82f6;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+  --success-color: #84cc16;
+  --header-color: #18181b;
+
+  /* Buttons — neutral dark surface, white text. Primary == secondary
+     (both neutral) per the unified Button.tsx style. */
+  --button-color: #3f3f46;
+  --button-text-color: #ffffff;
+  --form-border-color: #3f3f46;
+}
