@@ -4,6 +4,7 @@
   "description": "Lightweight kanban boards for your projects, embedded in VSCode.",
   "version": "0.2.3",
   "author": "Marc Sanahuja",
+  "license": "MIT",
   "publisher": "marcover9000",
   "icon": "assets/icon.png",
   "private": true,
