@@ -6,6 +6,7 @@ import {
   MdSubtitles,
   MdOutlineDescription,
   MdCheck,
+  MdEdit,
   MdOutlineDeleteOutline,
   MdRestore,
   MdContentCopy,
@@ -76,6 +77,20 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   color: var(--text-color);
+`;
+
+const CardTitleHead = styled(Head)`
+  gap: 4px;
+  .editable-hint {
+    opacity: 0;
+    color: var(--secondary-text-color);
+    font-size: 1.1rem;
+    margin-left: 4px;
+    transition: opacity 120ms ease-in-out;
+  }
+  &:hover .editable-hint {
+    opacity: 1;
+  }
 `;
 
 const Icon = styled.div`
@@ -366,7 +381,7 @@ const EditCard = () => {
             </Line>
           )}
           <Line>
-            <Head>
+            <CardTitleHead>
               <Icon>
                 <MdSubtitles />
               </Icon>
@@ -385,7 +400,8 @@ const EditCard = () => {
                   });
                 }}
               />
-            </Head>
+              <MdEdit className="editable-hint" aria-hidden />
+            </CardTitleHead>
           </Line>
           {(globalThis as any).settings.showDescription && (
             <Line>
