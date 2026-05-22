@@ -170,6 +170,7 @@ export const SidebarList = ({
                 autoFocus
                 value={draft}
                 placeholder="Card title…"
+                style={{ borderColor: accentColor }}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setDraft(e.target.value);
                 }}

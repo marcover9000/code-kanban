@@ -337,7 +337,7 @@ export const List = ({ kanban, list }: Properties) => {
                   autoFocus
                   value={addingCard.title}
                   placeholder="Card title…"
-                  style={{ width: 'calc(100% - 16px)', marginBottom: '6px' }}
+                  style={{ width: 'calc(100% - 16px)', marginBottom: '6px', borderColor: accentColor }}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setAddCard({ ...addingCard, title: e.target.value });
                   }}
