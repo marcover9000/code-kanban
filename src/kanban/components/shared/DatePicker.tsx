@@ -19,7 +19,8 @@ export const DatePicker = ({ value, onChange }: Props) => {
   return (
     <Input
       type="date"
-      style={{ width: 'calc(100% - 16px)', marginLeft: '8px' }}
+      lang={navigator.language}
+      style={{ width: '100%' }}
       value={date}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
         e.stopPropagation();

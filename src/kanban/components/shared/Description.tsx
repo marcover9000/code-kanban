@@ -5,11 +5,11 @@ import { styled } from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  padding: 8px;
+  margin-top: 4px;
 `;
 
 const RenderedView = styled.div`
-  width: calc(100% - 24px);
+  width: 100%;
   min-height: 40px;
   padding: 8px 12px;
   border: 1px solid var(--form-border-color);
@@ -66,7 +66,7 @@ export const Description = ({description: defaultDescription, fontSize, onEnter}
             handleBlur();
           }}
           style={{
-            width: 'calc(100% - 24px)',
+            width: '100%',
             fontFamily: 'var(--font-family)',
             backgroundColor: 'var(--card-background-color, var(--secondary-background-color))',
             color: 'var(--text-color)',

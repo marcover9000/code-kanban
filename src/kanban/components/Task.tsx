@@ -10,6 +10,7 @@ const Container = styled.div`
   align-items: center;
   gap: 8px;
   width: 100%;
+  box-sizing: border-box;
   padding: 4px 8px;
   border-radius: var(--border-radius);
   transition: background-color 120ms ease-in-out;

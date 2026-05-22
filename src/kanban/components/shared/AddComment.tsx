@@ -3,11 +3,11 @@ import { styled } from 'styled-components';
 import { AddButton } from './AddButton';
 
 const AddItemForm = styled.div`
-  min-height: 128px;
-  background-color: var(--primary-background-color);
-  border-radius: var(--border-radius);
-  padding: 0 8px 8px 8px;
-  margin: 0 8px 8px 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
 `;
 
 const TextArea = styled.textarea`
@@ -68,16 +68,18 @@ export const AddComment = ({ addText, placeholder, type, onEnter }: Properties) 
         value={text}
         autoFocus={true}
       />
-      <AddButton
-        text={addText}
-        type={type}
-        canClose={false}
-        disabled={false}
-        onAddClick={() => {
-          onEnter(text);
-          setText('');
-        }}
-      />
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <AddButton
+          text={addText}
+          type={type}
+          canClose={false}
+          disabled={false}
+          onAddClick={() => {
+            onEnter(text);
+            setText('');
+          }}
+        />
+      </div>
     </AddItemForm>
   );
 };
