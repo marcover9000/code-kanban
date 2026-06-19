@@ -218,7 +218,7 @@
     "@vscode/test-electron": "^2.5.2",
     "css-loader": "^7.1.4",
     "glob": "^13.0.6",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "style-loader": "^4.0.0",
     "styled-components": "^6.4.2",
     "ts-loader": "^9.6.1",
